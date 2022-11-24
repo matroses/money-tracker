@@ -3,9 +3,10 @@ package main.java.moneytracker.view.general;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import main.java.moneytracker.view.View;
 import main.java.moneytracker.controller.OverviewController;
 
-public class OverviewPane extends GridPane {
+public class OverviewPane extends GridPane implements View {
 
     private final OverviewController controller;
 
@@ -22,7 +23,7 @@ public class OverviewPane extends GridPane {
         this.add(testLabel, 0, 0);
     }
 
-    public void refresh() {
+    public void update() {
         // Update the overview pane, called by the controller
     }
 }

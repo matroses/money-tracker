@@ -1,9 +1,12 @@
 package main.java.moneytracker.model.strategies;
 
+import main.java.moneytracker.model.Person;
 import main.java.moneytracker.model.Ticket;
+
+import java.util.Map;
 
 public interface PaymentStrategy {
 
-    void pay(Ticket ticket);
+    Map<Person, Float> pay(Map<Person, Float> people, float total);
 
 }

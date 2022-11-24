@@ -5,23 +5,20 @@ import main.java.moneytracker.view.general.OverviewPane;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
-public class OverviewController extends Controller implements PropertyChangeListener {
-
-    private final MoneyTrackerApp moneyTracker;
-    private OverviewPane view;
+public class OverviewController extends Controller {
 
     public OverviewController(MoneyTrackerApp moneyTracker) {
-        this.moneyTracker = moneyTracker;
-        this.moneyTracker.addPropertyChangeListener(this);
+        super(moneyTracker);
     }
 
-    public void setView(OverviewPane view) {
-        this.view = view;
-    }
+    public ArrayList<String> validateTicket() {
+        ArrayList<String> errors = new ArrayList<>();
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        view.refresh();
+        // Validate the ticket
+
+
+        return errors;
     }
 }

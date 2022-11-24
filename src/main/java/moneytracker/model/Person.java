@@ -3,22 +3,19 @@ package main.java.moneytracker.model;
 import java.util.UUID;
 
 public class Person {
-    private String id, firstName, lastName;
+    private final UUID id;
+    private String firstName, lastName;
     private boolean isDeleted = false;
 
     public Person(String firstName, String lastName) {
         // Generate random id
-        this.id = UUID.randomUUID().toString();
+        this.id = UUID.randomUUID();
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -35,6 +32,10 @@ public class Person {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 
     public boolean isDeleted() {

@@ -2,16 +2,17 @@ package main.java.moneytracker.model.db;
 
 import main.java.moneytracker.model.Person;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
-public class PeopleDB {
+public class PeopleDB extends Database {
 
     private static PeopleDB instance;
 
-    private HashMap<String, Person> people;
+    private final HashMap<UUID, Person> people = new HashMap<>();
 
-    private PeopleDB() {
-    }
+    private PeopleDB() {}
 
     public static PeopleDB getInstance() {
         if (instance == null) {
@@ -29,7 +30,7 @@ public class PeopleDB {
         people.remove(person.getId());
     }
 
-    public Person getPerson(String id) {
+    public Person getPerson(UUID id) {
         return people.get(id);
     }
 
@@ -43,4 +44,7 @@ public class PeopleDB {
         return null;
     }
 
+    public ArrayList<Person> getAllPeople() {
+        return new ArrayList<>(people.values());
+    }
 }
