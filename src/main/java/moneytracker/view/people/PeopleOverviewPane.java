@@ -17,11 +17,14 @@ import main.java.moneytracker.view.tickets.CreateTicketPane;
 public class PeopleOverviewPane extends GridPane implements View {
 
     private final PeopleOverviewController controller;
+    private final PersonShowcasePane personShowcasePane;
     private TableView<Person> personTable;
 
     public PeopleOverviewPane(PeopleOverviewController controller) {
         this.controller = controller;
         this.controller.setView(this);
+
+        this.personShowcasePane = new PersonShowcasePane(controller);
 
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
@@ -31,16 +34,16 @@ public class PeopleOverviewPane extends GridPane implements View {
         this.setupPeopleTable();
         this.update();
         this.add(personTable, 0, 1);
+        this.add(personShowcasePane, 1, 1);
     }
 
     public void setupPeopleTable() {
         this.personTable = new TableView<>();
         this.personTable.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) {
-                Person person = personTable.getSelectionModel().getSelectedItem();
-                System.out.println("You clicked on: " + person.getFullName());
-
-                // TODO: update right screen with user info
+                this.personShowcasePane.setPerson(
+                    this.personTable.getSelectionModel().getSelectedItem()
+                );
             }
         });
 
@@ -54,5 +57,9 @@ public class PeopleOverviewPane extends GridPane implements View {
     public void update() {
         personTable.setItems(FXCollections.observableArrayList(controller.getPeople()));
         personTable.refresh();
+
+        System.out.println("PeopleOverviewPane: update()");
+
+        personShowcasePane.update();
     }
 }

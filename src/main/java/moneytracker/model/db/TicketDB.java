@@ -3,6 +3,8 @@ package main.java.moneytracker.model.db;
 import main.java.moneytracker.model.Person;
 import main.java.moneytracker.model.Ticket;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +15,7 @@ public class TicketDB extends Database {
     private static TicketDB instance;
 
     private final Map<Person, Map<UUID, Ticket>> tickets = new HashMap<>();
+    private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
     private TicketDB() {}
 
@@ -45,11 +48,20 @@ public class TicketDB extends Database {
     }
 
     public void addTicket(Ticket ticket) {
-        Map<UUID, Ticket> tickets = getTicketsByPerson(ticket.getPaidBy());
+        Map<UUID, Ticket> ticketsByPerson = getTicketsByPerson(ticket.getPaidBy());
+        ticketsByPerson.put(ticket.getId(), ticket);
+        tickets.put(ticket.getPaidBy(), ticketsByPerson);
 
-        tickets.put(ticket.getId(), ticket);
+        this.propertyChangeSupport.firePropertyChange("TICKET_ADDED", null, ticket);
+    }
 
-        getInstance().tickets.put(ticket.getPaidBy(), tickets);
+    /**
+     * Add a property change listener to this model.
+     *
+     * @param listener The listener to add.
+     */
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(listener);
     }
 
 }

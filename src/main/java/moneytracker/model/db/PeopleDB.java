@@ -2,15 +2,19 @@ package main.java.moneytracker.model.db;
 
 import main.java.moneytracker.model.Person;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class PeopleDB extends Database {
+public class PeopleDB extends Database  {
 
     private static PeopleDB instance;
 
     private final HashMap<UUID, Person> people = new HashMap<>();
+
+    private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
     private PeopleDB() {}
 
@@ -24,10 +28,14 @@ public class PeopleDB extends Database {
 
     public void addPerson(Person person) {
         people.put(person.getId(), person);
+
+        this.propertyChangeSupport.firePropertyChange("PERSON_ADDED", null, person);
     }
 
     public void removePerson(Person person) {
         people.remove(person.getId());
+
+        this.propertyChangeSupport.firePropertyChange("PERSON_REMOVED", null, person);
     }
 
     public Person getPerson(UUID id) {
@@ -46,5 +54,14 @@ public class PeopleDB extends Database {
 
     public ArrayList<Person> getAllPeople() {
         return new ArrayList<>(people.values());
+    }
+
+    /**
+     * Add a property change listener to this model.
+     *
+     * @param listener The listener to add.
+     */
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(listener);
     }
 }

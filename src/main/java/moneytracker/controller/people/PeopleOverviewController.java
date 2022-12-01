@@ -16,4 +16,7 @@ public class PeopleOverviewController extends Controller {
         return app.getPeopleDB().getAllPeople();
     }
 
+    public void updatePerson(Person person) {
+        app.getPeopleDB().addPerson(person);
+    }
 }
