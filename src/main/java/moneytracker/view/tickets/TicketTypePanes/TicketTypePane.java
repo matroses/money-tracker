@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import main.java.moneytracker.controller.tickets.CreateTicketController;
 import main.java.moneytracker.model.Person;
+import main.java.moneytracker.model.enums.PaymentStrategiesEnum;
 import main.java.moneytracker.view.View;
 
 import java.util.*;
@@ -18,7 +19,8 @@ public abstract class TicketTypePane extends GridPane implements View {
 
     protected final Map<Person, Map<String, Control>> fieldsPerPerson = new HashMap<>();
     protected final ChoiceBox<Person> personChoiceBox = new ChoiceBox<>();
-    protected final Label personLabel = new Label("Select a person to add: ");
+    protected final ChoiceBox<PaymentStrategiesEnum> paymentStrategyChoiceBox = new ChoiceBox<>();
+    protected final Label personLabel = new Label("Select a person to add: "), strategyLabel = new Label("Select a strategy: ");
 
     public TicketTypePane(CreateTicketController controller) {
         super();
@@ -30,8 +32,14 @@ public abstract class TicketTypePane extends GridPane implements View {
             if (newValue != null) {
                 this.addFieldsForNewPerson(newValue);
             }
+
+            // Reset the choice box
+            personChoiceBox.getSelectionModel().clearSelection();
         });
+        paymentStrategyChoiceBox.getItems().addAll(PaymentStrategiesEnum.values());
+        paymentStrategyChoiceBox.setConverter(PaymentStrategiesEnum.getConverter());
         this.updatePersonChoiceBox();
+        this.renderFields();
     }
 
     protected abstract void addFieldsForNewPerson(Person person);
@@ -42,12 +50,14 @@ public abstract class TicketTypePane extends GridPane implements View {
      */
     protected void renderFields() {
         this.getChildren().clear();
-        this.add(personLabel, 0, 0);
-        this.add(personChoiceBox, 1, 0);
+        this.add(strategyLabel, 0, 0);
+        this.add(paymentStrategyChoiceBox, 1, 0);
+        this.add(personLabel, 0, 1);
+        this.add(personChoiceBox, 1, 1);
         this.add(new Label(""), 0, 2);
 
-        // Go over each person and render the fields, we increment the row each time
         int row = 3;
+        // Go over each person and render the fields, we increment the row each time
         for (Map.Entry<Person, Map<String, Control>> entry : fieldsPerPerson.entrySet()) {
             // Configure the name label
             Label nameLabel = new Label(entry.getKey().getFullName());
@@ -76,6 +86,7 @@ public abstract class TicketTypePane extends GridPane implements View {
         saveButton.setOnAction(event -> {
             this.saveTicket();
         });
+        this.add(saveButton, 0, row, 2, 1);
     }
 
     /**

@@ -2,12 +2,9 @@ package main.java.moneytracker.controller.tickets;
 
 import main.java.moneytracker.controller.Controller;
 import main.java.moneytracker.model.MoneyTrackerApp;
-import main.java.moneytracker.model.Person;
-import main.java.moneytracker.model.Ticket;
+import main.java.moneytracker.model.tickets.Ticket;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class TicketsOverviewController extends Controller {
 

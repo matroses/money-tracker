@@ -9,7 +9,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
 import main.java.moneytracker.controller.tickets.CreateTicketController;
 import main.java.moneytracker.controller.tickets.TicketsOverviewController;
-import main.java.moneytracker.model.Ticket;
+import main.java.moneytracker.model.tickets.Ticket;
 import main.java.moneytracker.view.View;
 
 public class TicketsOverviewPane extends GridPane implements View {

@@ -5,11 +5,12 @@ import javafx.scene.control.TextField;
 import main.java.moneytracker.controller.tickets.CreateTicketController;
 import main.java.moneytracker.model.Person;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-public class AirplaneTicketPane extends TicketTypePane {
+public class GenericTicketPane extends TicketTypePane {
 
-    public AirplaneTicketPane(CreateTicketController controller) {
+    public GenericTicketPane(CreateTicketController controller) {
         super(controller);
     }
 
@@ -24,10 +25,7 @@ public class AirplaneTicketPane extends TicketTypePane {
         }
 
         Map<String, Control> fields = new LinkedHashMap<>();
-        fields.put("Seat price", new TextField());
-        fields.put("Baggage price", new TextField());
-        fields.put("Food price", new TextField());
-        fields.put("Other costs", new TextField());
+        fields.put("Cost", new TextField());
         fieldsPerPerson.put(person, fields);
 
         this.renderFields();

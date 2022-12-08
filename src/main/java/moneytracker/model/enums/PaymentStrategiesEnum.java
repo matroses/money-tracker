@@ -1,5 +1,6 @@
 package main.java.moneytracker.model.enums;
 
+import javafx.util.StringConverter;
 import main.java.moneytracker.model.strategies.EqualSplitStrategy;
 import main.java.moneytracker.model.strategies.ExactSplitStrategy;
 import main.java.moneytracker.model.strategies.PaymentStrategy;
@@ -24,5 +25,22 @@ public enum PaymentStrategiesEnum {
 
     public Class<? extends PaymentStrategy> getStrategyClass() {
         return strategyClass;
+    }
+
+    /**
+     * Converts the enum to a string for a JavaFX ChoiceBox or equivalent
+     */
+    public static StringConverter<PaymentStrategiesEnum> getConverter() {
+        return new StringConverter<PaymentStrategiesEnum>() {
+            @Override
+            public String toString(PaymentStrategiesEnum object) {
+                return object.getDescription();
+            }
+
+            @Override
+            public PaymentStrategiesEnum fromString(String string) {
+                return null;
+            }
+        };
     }
 }

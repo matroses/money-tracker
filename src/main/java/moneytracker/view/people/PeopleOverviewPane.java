@@ -1,6 +1,5 @@
 package main.java.moneytracker.view.people;
 
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -10,9 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import main.java.moneytracker.controller.people.PeopleOverviewController;
 import main.java.moneytracker.model.Person;
-import main.java.moneytracker.model.Ticket;
 import main.java.moneytracker.view.View;
-import main.java.moneytracker.view.tickets.CreateTicketPane;
 
 public class PeopleOverviewPane extends GridPane implements View {
 

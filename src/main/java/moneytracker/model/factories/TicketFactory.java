@@ -1,7 +1,7 @@
 package main.java.moneytracker.model.factories;
 
 import main.java.moneytracker.model.Person;
-import main.java.moneytracker.model.Ticket;
+import main.java.moneytracker.model.tickets.Ticket;
 import main.java.moneytracker.model.enums.PaymentStrategiesEnum;
 import main.java.moneytracker.model.enums.TicketTypeEnum;
 import main.java.moneytracker.model.strategies.PaymentStrategy;

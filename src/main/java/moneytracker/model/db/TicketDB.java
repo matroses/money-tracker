@@ -1,7 +1,7 @@
 package main.java.moneytracker.model.db;
 
 import main.java.moneytracker.model.Person;
-import main.java.moneytracker.model.Ticket;
+import main.java.moneytracker.model.tickets.Ticket;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

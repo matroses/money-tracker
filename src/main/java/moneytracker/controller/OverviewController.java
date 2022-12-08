@@ -2,11 +2,8 @@ package main.java.moneytracker.controller;
 
 import main.java.moneytracker.model.MoneyTrackerApp;
 import main.java.moneytracker.model.Person;
-import main.java.moneytracker.model.Ticket;
-import main.java.moneytracker.view.general.OverviewPane;
+import main.java.moneytracker.model.tickets.Ticket;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

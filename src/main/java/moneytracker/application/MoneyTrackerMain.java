@@ -4,12 +4,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import main.java.moneytracker.model.MoneyTrackerApp;
 import main.java.moneytracker.model.Person;
-import main.java.moneytracker.model.Ticket;
-import main.java.moneytracker.model.enums.PaymentStrategiesEnum;
-import main.java.moneytracker.model.enums.TicketTypeEnum;
 import main.java.moneytracker.view.MainStage;
-
-import java.util.HashMap;
 
 public class MoneyTrackerMain extends Application
 {

@@ -30,7 +30,7 @@ public class OverviewPane extends GridPane implements View {
 
         this.titleLabel = new Label("Overview");
         this.totalPriceLabel = new Label("Total price: ");
-        this.personTable = new TableView<Map<Person, Double>>();
+        this.personTable = new TableView<>();
 
         this.add(new Label("All tickets"), 0, 0, 1, 1);
         this.setupPersonTable();

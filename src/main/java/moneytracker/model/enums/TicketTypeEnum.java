@@ -1,29 +1,52 @@
 package main.java.moneytracker.model.enums;
 
 import javafx.util.StringConverter;
-import main.java.moneytracker.view.tickets.TicketTypePanes.AirplaneTicketPane;
-import main.java.moneytracker.view.tickets.TicketTypePanes.TicketTypePane;
+import main.java.moneytracker.model.tickets.*;
+import main.java.moneytracker.view.tickets.TicketTypePanes.*;
 
 public enum TicketTypeEnum {
-    AIRPLANE_TICKET("Airplane ticket", AirplaneTicketPane.class);
+    GENERIC_TICKET("Generic ticket", GenericTicket.class, GenericTicketPane.class),
+    AIRPLANE_TICKET("Airplane ticket", AirplaneTicket.class, AirplaneTicketPane.class);
     //RestaurantTicket,
     //TaxiTicket,
     //ConcertTicket,
     //ShoppingTicket;
 
     private final String name;
+    private final Class<? extends Ticket> ticketClass;
     private final Class<? extends TicketTypePane> ticketTypePaneClass;
 
-    TicketTypeEnum(String name, Class<? extends TicketTypePane> ticketTypePaneClass) {
+    TicketTypeEnum(String name, Class<? extends Ticket> ticketClass, Class<? extends TicketTypePane> ticketTypePaneClass) {
         this.name = name;
+        this.ticketClass = ticketClass;
         this.ticketTypePaneClass = ticketTypePaneClass;
     }
     public String getName() {
         return name;
     }
 
+    public Class<? extends Ticket> getTicketClass() {
+        return ticketClass;
+    }
+
     public Class<? extends TicketTypePane> getTicketTypePaneClass() {
         return ticketTypePaneClass;
+    }
+
+    /**
+     * Finds the enum value by the associated ticket class.
+     * @author Sigfried
+     * @param ticketClass The ticket class to find the enum value for. Must be a subclass of Ticket.
+     * @return The enum value associated with the ticket class. Null if no enum value is associated with the ticket class.
+     */
+    public static TicketTypeEnum getEnumByTicketClass(Class<? extends Ticket> ticketClass) {
+        for (TicketTypeEnum typeEnum : values()) {
+            if (typeEnum.getTicketClass() == ticketClass) {
+                return typeEnum;
+            }
+        }
+
+        return null;
     }
 
     /**
