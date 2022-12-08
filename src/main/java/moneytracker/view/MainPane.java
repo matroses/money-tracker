@@ -4,6 +4,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import main.java.moneytracker.controller.people.PeopleOverviewController;
+import main.java.moneytracker.controller.tickets.CreateTicketController;
 import main.java.moneytracker.controller.tickets.TicketsOverviewController;
 import main.java.moneytracker.controller.OverviewController;
 import main.java.moneytracker.model.MoneyTrackerApp;
@@ -26,7 +27,7 @@ public class MainPane extends BorderPane {
         this.tabs = new ArrayList<>();
 
         this.tabs.add(new Tab("Overview", new OverviewPane(new OverviewController(moneyTracker))));
-        this.tabs.add(new Tab("Tickets", new TicketsOverviewPane(new TicketsOverviewController(moneyTracker))));
+        this.tabs.add(new Tab("Tickets", new TicketsOverviewPane(new TicketsOverviewController(moneyTracker), new CreateTicketController(moneyTracker))));
         this.tabs.add(new Tab("People", new PeopleOverviewPane(new PeopleOverviewController(moneyTracker))));
 
         this.initializeTabs();

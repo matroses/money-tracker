@@ -19,6 +19,7 @@ public class PersonShowcasePane extends GridPane implements View {
     public PersonShowcasePane(PeopleOverviewController controller) {
         this.controller = controller;
         titleLabel = new Label("");
+        titleLabel.setStyle("-fx-font-size: 14px;-fx-font-weight: bold;");
         firstNameLabel = new Label("First name:");
         lastNameLabel = new Label("Last name:");
         firstNameField = new TextField();
@@ -43,14 +44,15 @@ public class PersonShowcasePane extends GridPane implements View {
     @Override
     public void update() {
         this.getChildren().clear();
+        this.add(titleLabel, 0, 0, 2, 1);
 
         // If there is no person, remove all the elements and display a label to select a person
         if (person == null) {
-            this.add(new Label("Select a person to see their details."), 0, 0);
+            titleLabel.setText("Select a person to view their details");
             return;
         }
 
-        this.add(titleLabel, 0, 0);
+        this.titleLabel.setText("Editing user " + person.getFullName());
         this.firstNameField.setText(person.getFirstName());
         this.lastNameField.setText(person.getLastName());
         this.firstNameField.setDisable(person.isDeleted());

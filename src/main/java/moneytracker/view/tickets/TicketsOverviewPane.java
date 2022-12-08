@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
+import main.java.moneytracker.controller.tickets.CreateTicketController;
 import main.java.moneytracker.controller.tickets.TicketsOverviewController;
 import main.java.moneytracker.model.Ticket;
 import main.java.moneytracker.view.View;
@@ -17,7 +18,7 @@ public class TicketsOverviewPane extends GridPane implements View {
     private final CreateTicketPane createTicketPane;
     private TableView<Ticket> ticketTable;
 
-    public TicketsOverviewPane(TicketsOverviewController controller) {
+    public TicketsOverviewPane(TicketsOverviewController controller, CreateTicketController createTicketController) {
         this.controller = controller;
         this.controller.setView(this);
 
@@ -30,9 +31,9 @@ public class TicketsOverviewPane extends GridPane implements View {
         this.update();
         this.add(ticketTable, 0, 1);
 
-        // Create ticketpane
-        createTicketPane = new CreateTicketPane(controller);
-        this.add(createTicketPane, 0, 2, 2, 1);
+        // Create ticket pane
+        createTicketPane = new CreateTicketPane(createTicketController);
+        this.add(createTicketPane, 1, 0, 2, 2);
     }
 
     public void setupTicketsTable() {

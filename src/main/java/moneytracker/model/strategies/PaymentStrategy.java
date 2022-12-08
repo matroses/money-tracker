@@ -7,6 +7,6 @@ import java.util.Map;
 
 public interface PaymentStrategy {
 
-    Map<Person, Float> pay(Map<Person, Float> people, float total);
+    Map<Person, Float> pay(Map<Person, Float> enteredAmountPerPerson, float total);
 
 }

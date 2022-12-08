@@ -17,7 +17,7 @@ public class MainStage {
         stage.setX(630);
         stage.setY(20);
         Group root = new Group();
-        Scene scene = new Scene(root, 600, 600);
+        Scene scene = new Scene(root, 900, 700);
         BorderPane borderPane = new MainPane(moneyTracker);
         borderPane.prefHeightProperty().bind(scene.heightProperty());
         borderPane.prefWidthProperty().bind(scene.widthProperty());

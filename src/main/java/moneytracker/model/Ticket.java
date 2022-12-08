@@ -16,20 +16,13 @@ public class Ticket {
     private TicketTypeEnum ticketType;
     private Map<Person, Float> costPerPerson = new HashMap<>();
 
-    public Ticket(Person paidBy, Person createdBy, TicketTypeEnum ticketType, PaymentStrategiesEnum paymentStrategyEnum, Map<Person, Float> costPerPerson, float total) throws IllegalArgumentException {
+    public Ticket(Person paidBy, Person createdBy, TicketTypeEnum ticketType, PaymentStrategiesEnum paymentStrategyEnum, Map<Person, Float> costPerPerson) throws IllegalArgumentException {
         this.id = UUID.randomUUID();
         this.paidBy = paidBy;
         this.createdBy = createdBy;
         this.ticketType = ticketType;
         this.paymentStrategy = paymentStrategyEnum;
-
-        // Execute the payment strategy
-        try {
-            PaymentStrategy strategy = paymentStrategyEnum.getStrategyClass().newInstance();
-            this.costPerPerson = strategy.pay(costPerPerson, total);
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new IllegalArgumentException(e);
-        }
+        this.costPerPerson = costPerPerson;
     }
 
     public UUID getId() {

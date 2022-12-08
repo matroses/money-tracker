@@ -1,5 +1,7 @@
 package main.java.moneytracker.model;
 
+import javafx.util.StringConverter;
+
 import java.util.UUID;
 
 public class Person {
@@ -44,5 +46,19 @@ public class Person {
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public static StringConverter<Person> getConverter() {
+        return new StringConverter<Person>() {
+            @Override
+            public String toString(Person person) {
+                return person.getFullName();
+            }
+
+            @Override
+            public Person fromString(String s) {
+                return null;
+            }
+        };
     }
 }
