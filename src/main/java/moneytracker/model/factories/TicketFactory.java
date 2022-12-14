@@ -18,8 +18,10 @@ public class TicketFactory {
         // Calculate the actual cost per person
         Map<Person, Float> costPerPerson = strategy.pay(enteredCostPerPerson, amount);
 
+        return null;
+
         // Create a new ticket
-        return new Ticket(paidBy, createdBy, ticketType, strategiesEnum, costPerPerson);
+        //return new Ticket(paidBy, createdBy, ticketType, strategiesEnum, costPerPerson);
     }
 
 }

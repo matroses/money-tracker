@@ -13,8 +13,8 @@ import java.util.Map;
 public class GenericTicket extends Ticket {
     private final Map<Person, Float> costPerPerson;
 
-    public GenericTicket(Person paidBy, Person createdBy, TicketTypeEnum ticketType, PaymentStrategiesEnum paymentStrategyEnum, Map<Person, Float> costPerPerson) throws IllegalArgumentException {
-        super(paidBy, createdBy, ticketType, paymentStrategyEnum);
+    public GenericTicket(Person paidBy, Person createdBy, PaymentStrategiesEnum paymentStrategyEnum, Map<Person, Float> costPerPerson) throws IllegalArgumentException {
+        super(paidBy, createdBy, paymentStrategyEnum);
         this.costPerPerson = costPerPerson;
     }
 

@@ -53,6 +53,10 @@ public class CreateTicketPane extends GridPane implements View {
 
     public void setTicketType(TicketTypeEnum ticketType) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         this.ticketTypePane = TicketPaneFactory.createTicketPane(ticketType, this.controller);
+
+        // Delete the node at row 3 if it exists
+        this.getChildren().removeIf(node -> getRowIndex(node) == 3);
+
         this.add(this.ticketTypePane, 0, 3, 3, 3);
     }
 }
