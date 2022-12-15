@@ -4,9 +4,11 @@ import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
 import main.java.moneytracker.controller.tickets.CreateTicketController;
 import main.java.moneytracker.model.Person;
+import main.java.moneytracker.model.tickets.GenericTicket;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class GenericTicketPane extends TicketTypePane {
 
@@ -33,6 +35,21 @@ public class GenericTicketPane extends TicketTypePane {
 
     @Override
     protected void saveTicket() {
-        // TODO: Implement
+        if (!this.verifyFields()) {
+            this.renderFields();
+            return;
+        }
+
+        // Get values from fields
+        Map<String, Map<Person, Float>> values = this.getValuesPerField();
+
+        this.ticket = controller.createGenericTicket(
+            this.paidByPerson, this.getSelectedStrategy(), values.get("Cost")
+        );
+    }
+
+    @Override
+    protected void verifyField(String fieldName, Control field, Person person) {
+        defaultCostFieldVerification(fieldName, field, person);
     }
 }

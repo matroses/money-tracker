@@ -37,4 +37,9 @@ public class AirplaneTicketPane extends TicketTypePane {
     protected void saveTicket() {
         // TODO: Implement
     }
+
+    @Override
+    protected void verifyField(String fieldName, Control field, Person person) {
+        defaultCostFieldVerification(fieldName, field, person);
+    }
 }

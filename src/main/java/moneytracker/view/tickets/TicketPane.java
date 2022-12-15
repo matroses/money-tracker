@@ -2,10 +2,10 @@ package main.java.moneytracker.view.tickets;
 
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import main.java.moneytracker.controller.Controller;
 import main.java.moneytracker.controller.tickets.CreateTicketController;
 import main.java.moneytracker.model.enums.TicketTypeEnum;
 import main.java.moneytracker.model.factories.TicketPaneFactory;
+import main.java.moneytracker.model.tickets.Ticket;
 import main.java.moneytracker.view.View;
 
 import javafx.geometry.Insets;
@@ -14,22 +14,23 @@ import main.java.moneytracker.view.tickets.TicketTypePanes.TicketTypePane;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class CreateTicketPane extends GridPane implements View {
+public class TicketPane extends GridPane implements View {
 
     private final CreateTicketController controller;
     private final ChoiceBox<TicketTypeEnum> ticketTypeChoiceBox;
     private TicketTypePane ticketTypePane;
+    private Label ticketTitleLabel = new Label("Create new ticket");
 
-    public CreateTicketPane(CreateTicketController controller) {
+    public TicketPane(CreateTicketController controller) {
         this.controller = controller;
+        this.controller.setView(this);
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
 
         // Add create new ticket label
-        Label createNewTicketLabel = new Label("Create new ticket");
-        createNewTicketLabel.setStyle("-fx-font-size: 14px;-fx-font-weight: bold;");
-        this.add(createNewTicketLabel, 0, 0, 2, 1);
+        ticketTitleLabel.setStyle("-fx-font-size: 14px;-fx-font-weight: bold;");
+        this.add(ticketTitleLabel, 0, 0, 2, 1);
 
         // Add ticket type choice box and label
         this.add(new Label("Select ticket type"), 0, 1, 2, 1);
@@ -39,7 +40,7 @@ public class CreateTicketPane extends GridPane implements View {
         // When the user selects a ticket type, the ticket type pane will be updated
         this.ticketTypeChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             try {
-                this.setTicketType(newValue);
+                this.setTicketType(newValue, null);
             } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
                 e.printStackTrace();
             }
@@ -47,11 +48,21 @@ public class CreateTicketPane extends GridPane implements View {
         this.add(this.ticketTypeChoiceBox, 0, 2, 2, 1);
     }
 
-    @Override
-    public void update() {
+    public TicketPane(CreateTicketController controller, Ticket ticket) throws InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
+        this(controller);
+        ticketTitleLabel.setText("Edit ticket");
+
+        // Remove the ticket type choice box
+        this.getChildren().removeIf(node -> GridPane.getRowIndex(node) == 1);
+        this.setTicketType(TicketTypeEnum.getEnumByTicket(ticket), ticket);
     }
 
-    public void setTicketType(TicketTypeEnum ticketType) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+    @Override
+    public void update() {
+        this.ticketTypePane.update();
+    }
+
+    public void setTicketType(TicketTypeEnum ticketType, Ticket ticket) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         this.ticketTypePane = TicketPaneFactory.createTicketPane(ticketType, this.controller);
 
         // Delete the node at row 3 if it exists

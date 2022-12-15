@@ -2,7 +2,6 @@ package main.java.moneytracker.model.tickets;
 
 import main.java.moneytracker.model.Person;
 import main.java.moneytracker.model.enums.PaymentStrategiesEnum;
-import main.java.moneytracker.model.enums.TicketTypeEnum;
 
 import java.util.Map;
 import java.util.UUID;
@@ -10,13 +9,14 @@ import java.util.UUID;
 public abstract class Ticket {
 
     private final UUID id;
-    private Person paidBy, createdBy;
+    private Person paidBy;
     private PaymentStrategiesEnum paymentStrategy;
 
-    public Ticket(Person paidBy, Person createdBy, PaymentStrategiesEnum paymentStrategy) throws IllegalArgumentException {
+    //private TicketParameters parameters;
+
+    public Ticket(Person paidBy, PaymentStrategiesEnum paymentStrategy) throws IllegalArgumentException {
         this.id = UUID.randomUUID();
         this.paidBy = paidBy;
-        this.createdBy = createdBy;
         this.paymentStrategy = paymentStrategy;
     }
 
@@ -28,24 +28,18 @@ public abstract class Ticket {
         return paidBy;
     }
 
-    public void setPaidBy(Person paidBy) {
+    public Ticket setPaidBy(Person paidBy) {
         this.paidBy = paidBy;
-    }
-
-    public Person getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(Person createdBy) {
-        this.createdBy = createdBy;
+        return this;
     }
 
     public PaymentStrategiesEnum getPaymentStrategy() {
         return paymentStrategy;
     }
 
-    public void setPaymentStrategy(PaymentStrategiesEnum paymentStrategy) {
+    public Ticket setPaymentStrategy(PaymentStrategiesEnum paymentStrategy) {
         this.paymentStrategy = paymentStrategy;
+        return this;
     }
 
     public abstract Map<Person, Float> getCostPerPerson();

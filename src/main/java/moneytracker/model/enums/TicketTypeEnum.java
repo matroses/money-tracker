@@ -49,6 +49,10 @@ public enum TicketTypeEnum {
         return null;
     }
 
+    public static TicketTypeEnum getEnumByTicket(Ticket ticket) {
+        return getEnumByTicketClass(ticket.getClass());
+    }
+
     /**
      * Returns a StringConverter for this enum, used in a ChoiceBox for JavaFX
      * @return StringConverter

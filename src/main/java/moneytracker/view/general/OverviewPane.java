@@ -53,7 +53,7 @@ public class OverviewPane extends GridPane implements View {
 
     public void update() {
         // Update the overview pane, called by the controller
-        personTable.setItems(FXCollections.observableArrayList(controller.getDebtPerPerson()));
+        //personTable.setItems(FXCollections.observableArrayList(controller.getDebtPerPerson()));
         personTable.refresh();
     }
 }

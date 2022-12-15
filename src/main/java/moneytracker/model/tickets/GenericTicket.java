@@ -11,11 +11,15 @@ import java.util.Map;
  * @author Sigfried
  */
 public class GenericTicket extends Ticket {
-    private final Map<Person, Float> costPerPerson;
+    private Map<Person, Float> costPerPerson;
 
-    public GenericTicket(Person paidBy, Person createdBy, PaymentStrategiesEnum paymentStrategyEnum, Map<Person, Float> costPerPerson) throws IllegalArgumentException {
-        super(paidBy, createdBy, paymentStrategyEnum);
+    public GenericTicket(Person paidBy, PaymentStrategiesEnum paymentStrategyEnum) throws IllegalArgumentException {
+        super(paidBy, paymentStrategyEnum);
+    }
+
+    public GenericTicket setCostPerPerson(Map<Person, Float> costPerPerson) {
         this.costPerPerson = costPerPerson;
+        return this;
     }
 
     @Override

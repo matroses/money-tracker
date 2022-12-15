@@ -24,23 +24,52 @@ public class OverviewController extends Controller {
         return errors;
     }
 
-    // TODO: Map<Person (needs to pay/receive), Map<Person (from), Double (amount)>>
-    public Map<Person, Double> getDebtPerPerson() {
+    // Returns map of the form Map<Debtee, Map<Debtor, Debt>> (debtMap<debtee, debtorMap<debtor, debt>>)
+    public Map<Person, Map<Person, Float>> createDebtMap() {
+        ArrayList<Person> people = this.app.getPeopleDB().getAllPeople();
+        Map<Person, Float> debtorMap = new HashMap<>();
+        Map<Person, Map<Person, Float>> debtMap = new HashMap<>();
+
+        for (Person person: people) {
+            debtorMap.put(person, 0f);
+        }
+        for (Person person: people) {
+            debtMap.put(person, debtorMap);
+        }
+
+        return debtMap;
+    }
+
+    // Returns full map of debtees, debtors and debts
+    public Map<Person, Map<Person, Float>> getDebtPerPerson() {
         ArrayList<Ticket> tickets = this.app.getTicketDB().getAllTickets();
-        Map<Person, Double> returnMap = new HashMap<>();
-        /*
+        Map<Person, Map<Person, Float>> debtMap = this.createDebtMap();
+
+        // Get all deptors, with debts for each debtee
         for (Ticket ticket: tickets) {
-            for (Person person: ticket.getCostPerPerson().keySet()) {
-                if (!returnMap.containsKey(person)) returnMap.put(person, 0.0);
+            Map<Person, Float> costPerPerson = ticket.getCostPerPerson();
+            Person debtee = ticket.getPaidBy();
+            Map<Person, Float> debtorMap = debtMap.get(debtee);
 
-                if (person == ticket.getPaidBy()) {
-                    returnMap.put(person, returnMap.get(person) - ticket.getTotal());
-                } else {
-                    returnMap.put(person, returnMap.get(person) + ticket.getCostPerPerson().get(person));
-                }
+            for (Person person: costPerPerson.keySet()) {
+                if (person != debtee) debtorMap.put(person, debtorMap.get(person) + costPerPerson.get(person));
             }
-        }*/
+            debtMap.put(debtee, debtorMap);
+        }
 
-        return returnMap;
+        // Recalculate differences between debtee & debtors
+        // for (Person debtee: )
+
+        return debtMap;
+    }
+
+    // Returns simplified map of debtees, debtors and debts, where differences between people are calculated are
+    public Map<Person, Map<Person, Float>> getSimplifiedDebtPerPerson() {
+        Map<Person, Map<Person, Float>> debtMap = this.getDebtPerPerson();
+        Map<Person, Map<Person, Float>> simplifiedDebtMap = this.createDebtMap();
+
+
+
+        return simplifiedDebtMap;
     }
 }

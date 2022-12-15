@@ -2,24 +2,16 @@ package main.java.moneytracker.model.tickets;
 
 import main.java.moneytracker.model.Person;
 import main.java.moneytracker.model.enums.PaymentStrategiesEnum;
-import main.java.moneytracker.model.enums.TicketTypeEnum;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class AirplaneTicket extends Ticket {
 
-    private Map<Person, Float> seatPricePerPerson, baggagePricePerPerson, foodPricePerPerson, otherCostsPerPerson;
+    private Map<Person, Float> seatPricePerPerson = new HashMap<>(), baggagePricePerPerson, foodPricePerPerson, otherCostsPerPerson;
 
-    public AirplaneTicket(
-            Person paidBy, Person createdBy, PaymentStrategiesEnum paymentStrategyEnum, Map<Person, Float> seatPricePerPerson,
-            Map<Person, Float> baggagePricePerPerson, Map<Person, Float> foodPricePerPerson, Map<Person, Float> otherCostsPerPerson
-    ) throws IllegalArgumentException {
-        super(paidBy, createdBy, paymentStrategyEnum);
-        this.setSeatPricePerPerson(seatPricePerPerson);
-        this.setBaggagePricePerPerson(baggagePricePerPerson);
-        this.setFoodPricePerPerson(foodPricePerPerson);
-        this.setOtherCostsPerPerson(otherCostsPerPerson);
+    public AirplaneTicket(Person paidBy, PaymentStrategiesEnum paymentStrategyEnum) throws IllegalArgumentException {
+        super(paidBy, paymentStrategyEnum);
     }
 
 
@@ -57,31 +49,35 @@ public class AirplaneTicket extends Ticket {
         return seatPricePerPerson;
     }
 
-    public void setSeatPricePerPerson(Map<Person, Float> seatPricePerPerson) {
+    public AirplaneTicket setSeatPricePerPerson(Map<Person, Float> seatPricePerPerson) {
         this.seatPricePerPerson = seatPricePerPerson;
+        return this;
     }
 
     public Map<Person, Float> getBaggagePricePerPerson() {
         return baggagePricePerPerson;
     }
 
-    public void setBaggagePricePerPerson(Map<Person, Float> baggagePricePerPerson) {
+    public AirplaneTicket setBaggagePricePerPerson(Map<Person, Float> baggagePricePerPerson) {
         this.baggagePricePerPerson = baggagePricePerPerson;
+        return this;
     }
 
     public Map<Person, Float> getFoodPricePerPerson() {
         return foodPricePerPerson;
     }
 
-    public void setFoodPricePerPerson(Map<Person, Float> foodPricePerPerson) {
+    public AirplaneTicket setFoodPricePerPerson(Map<Person, Float> foodPricePerPerson) {
         this.foodPricePerPerson = foodPricePerPerson;
+        return this;
     }
 
     public Map<Person, Float> getOtherCostsPerPerson() {
         return otherCostsPerPerson;
     }
 
-    public void setOtherCostsPerPerson(Map<Person, Float> otherCostsPerPerson) {
+    public AirplaneTicket setOtherCostsPerPerson(Map<Person, Float> otherCostsPerPerson) {
         this.otherCostsPerPerson = otherCostsPerPerson;
+        return this;
     }
 }
