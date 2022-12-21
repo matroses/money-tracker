@@ -48,6 +48,15 @@ public class TicketPane extends GridPane implements View {
         this.add(this.ticketTypeChoiceBox, 0, 2, 2, 1);
     }
 
+    /**
+     * This constructor is used when the user wants to edit an existing ticket
+     * @param controller
+     * @param ticket
+     * @throws InvocationTargetException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws NoSuchMethodException
+     */
     public TicketPane(CreateTicketController controller, Ticket ticket) throws InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
         this(controller);
         ticketTitleLabel.setText("Edit ticket");
@@ -62,12 +71,22 @@ public class TicketPane extends GridPane implements View {
         this.ticketTypePane.update();
     }
 
+    /**
+     * This method is used to set the ticket type pane, it will create a new pane
+     * @param ticketType The ticket type
+     * @param ticket The ticket to edit if the user wants to edit an existing ticket, can be null
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     */
     public void setTicketType(TicketTypeEnum ticketType, Ticket ticket) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        this.ticketTypePane = TicketPaneFactory.createTicketPane(ticketType, this.controller);
+        this.ticketTypeChoiceBox.setValue(ticketType);
+        this.ticketTypeChoiceBox.setDisable(ticket != null); // Disable the choice box if the user is editing an existing ticket
+        this.ticketTypePane = TicketPaneFactory.createTicketPane(ticketType, this.controller, ticket);
 
         // Delete the node at row 3 if it exists
         this.getChildren().removeIf(node -> getRowIndex(node) == 3);
-
         this.add(this.ticketTypePane, 0, 3, 3, 3);
     }
 }

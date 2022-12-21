@@ -5,6 +5,7 @@ import javafx.scene.control.TextField;
 import main.java.moneytracker.controller.tickets.CreateTicketController;
 import main.java.moneytracker.model.Person;
 import main.java.moneytracker.model.tickets.GenericTicket;
+import main.java.moneytracker.model.tickets.Ticket;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -12,8 +13,8 @@ import java.util.Objects;
 
 public class GenericTicketPane extends TicketTypePane {
 
-    public GenericTicketPane(CreateTicketController controller) {
-        super(controller);
+    public GenericTicketPane(CreateTicketController controller, Ticket ticket) {
+        super(controller, ticket);
     }
 
     @Override
@@ -31,6 +32,16 @@ public class GenericTicketPane extends TicketTypePane {
         fieldsPerPerson.put(person, fields);
 
         this.renderFields();
+    }
+
+    @Override
+    protected Map<String, Map<Person, Float>> getTicketValues() {
+        GenericTicket ticket = (GenericTicket) this.ticket;
+        Map<String, Map<Person, Float>> values = new LinkedHashMap<>();
+
+        values.put("Cost", ticket.getCostPerPerson());
+
+        return values;
     }
 
     @Override

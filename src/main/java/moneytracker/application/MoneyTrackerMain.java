@@ -19,7 +19,7 @@ public class MoneyTrackerMain extends Application
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         MoneyTrackerApp moneyTracker = new MoneyTrackerApp();
 
         // Create dummy user

@@ -24,19 +24,29 @@ public abstract class TicketTypePane extends GridPane implements View {
     protected Person paidByPerson;
     protected Ticket ticket;
 
-    public TicketTypePane(CreateTicketController controller) {
+    public TicketTypePane(CreateTicketController controller, Ticket ticket) {
         super();
         this.controller = controller;
         this.setPadding(new Insets(10, 0, 0, 0));
 
         this.configureChoiceBoxes();
         this.updatePersonChoiceBox();
+
+        // If the ticket is not null, it means that the user is editing a ticket
+        if (ticket != null) {
+            this.ticket = ticket;
+            this.paidByPerson = this.ticket.getPaidBy();
+            this.payerChoiceBox.setValue(this.paidByPerson);
+            this.paymentStrategyChoiceBox.setValue(this.ticket.getPaymentStrategy());
+        }
+
         this.renderFields();
     }
 
     protected abstract void addFieldsForNewPerson(Person person);
     protected abstract void saveTicket();
     protected abstract void verifyField(String fieldName, Control field, Person person);
+    protected abstract Map<String, Map<Person, Float>> getTicketValues();
 
     /**
      * Go over each person and render their fields
@@ -51,12 +61,31 @@ public abstract class TicketTypePane extends GridPane implements View {
         this.add(personChoiceBox, 1, 2);
         this.add(new Label(""), 0, 3);
 
+        Map<String, Map<Person, Float>> ticketValues = null;
+        if (this.ticket != null) {
+            ticketValues = this.getTicketValues();
+
+            // For each person in the ticket values, add their fields
+            for (Map.Entry<String, Map<Person, Float>> entry : ticketValues.entrySet()) {
+                Map<Person, Float> personValues = entry.getValue();
+
+                for (Map.Entry<Person, Float> personEntry : personValues.entrySet()) {
+                    Person person = personEntry.getKey();
+
+                    if (!this.fieldsPerPerson.containsKey(person)) {
+                        this.addFieldsForNewPerson(person);
+                    }
+                }
+            }
+        }
+
         int row = 4;
 
         // Go over each person and render the fields, we increment the row each time
         for (Map.Entry<Person, Map<String, Control>> entry : fieldsPerPerson.entrySet()) {
             // Get all the errors for this person
             Map<Control, String> personErrors = errors.get(entry.getKey());
+
             // Configure the name label
             Label nameLabel = new Label(entry.getKey().getFullName());
             nameLabel.setStyle("-fx-font-weight: bold;");
@@ -72,6 +101,11 @@ public abstract class TicketTypePane extends GridPane implements View {
                 // If there are errors for this field, add them to the grid
                 if (personErrors != null && personErrors.containsKey(field.getValue())) {
                     this.add(new Label(personErrors.get(field.getValue())), 2, row);
+
+                    // If we are editing a ticket, set the value of the field
+                    if (this.ticket != null) {
+                        field.getValue().setUserData(ticketValues.get(field.getKey()).get(entry.getKey()));
+                    }
                 }
 
                 row++;
