@@ -36,6 +36,8 @@ public class OverviewPane extends GridPane implements View {
         this.setupPersonTable();
         this.update();
         this.add(personTable, 0, 1);
+
+        this.controller.getDebtMap();
     }
 
     public void setupPersonTable() {
