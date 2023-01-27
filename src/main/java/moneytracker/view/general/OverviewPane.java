@@ -1,16 +1,14 @@
 package main.java.moneytracker.view.general;
 
-import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
+
 import main.java.moneytracker.model.Person;
 import main.java.moneytracker.view.View;
 import main.java.moneytracker.controller.OverviewController;
 
-import java.lang.invoke.LambdaConversionException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +17,8 @@ public class OverviewPane extends GridPane implements View {
     private final OverviewController controller;
 
     Label titleLabel, textLabel;
+
+    CheckBox checkBox;
 
     public OverviewPane(OverviewController controller) {
         this.controller = controller;
@@ -29,17 +29,26 @@ public class OverviewPane extends GridPane implements View {
         this.setHgap(5);
 
         this.titleLabel = new Label("Overview");
-        this.textLabel = new Label("");
 
-        this.add(titleLabel, 0, 0, 1, 1);
-        this.setupTextLabel();
+        Map<Person, Map<Person, Float>> debtMap = this.controller.getDebtMap();
+        this.textLabel = new Label(this.getOverviewText(debtMap));
+
+        checkBox = new CheckBox("Simplify debts");
+        checkBox.setOnAction(event -> {
+            CheckBox cb = (CheckBox) event.getSource();
+
+            if (cb.isSelected()) this.textLabel.setText(this.getOverviewText(this.controller.getSimplifiedDebtMap(this.controller.getDebtMap())));
+            else this.textLabel.setText(this.getOverviewText(this.controller.getDebtMap()));
+        });
+
+        this.add(titleLabel, 0, 1, 1, 1);
         this.add(textLabel, 0, 2, 1, 1);
+        this.add(checkBox, 0, 3, 1, 1);
+
         this.update();
     }
 
-    public void setupTextLabel() {
-        Map<Person, Map<Person, Float>> debtMap = this.controller.getDebtMap();
-        this.controller.logDebtMap(debtMap);
+    public String getOverviewText(Map<Person, Map<Person, Float>> debtMap) {
 
         String text = "";
 
@@ -65,12 +74,11 @@ public class OverviewPane extends GridPane implements View {
             }
         }
 
-        titleLabel.setText(text);
+        return text;
     }
 
     public void update() {
-        // Update the overview pane, called by the controller
-        //personTable.setItems(FXCollections.observableArrayList(controller.getDebtPerPerson()));
-        //personTable.refresh();
+        if (this.checkBox.isSelected()) this.textLabel.setText(this.getOverviewText(this.controller.getSimplifiedDebtMap(this.controller.getDebtMap())));
+        else this.textLabel.setText(this.getOverviewText(this.controller.getDebtMap()));
     }
 }
