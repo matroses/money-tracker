@@ -68,7 +68,7 @@ public class OverviewController extends Controller {
         // Recalculate differences between debtee & debtors
         for (Map.Entry<Person, Map<Person, Float>> debtee1: debtMap.entrySet()) {
             for (Map.Entry<Person, Map<Person, Float>> debtee2: debtMap.entrySet()) {
-                Float debt1 = debtee1.getValue().get(debtee1.getKey());
+                Float debt1 = debtee1.getValue().get(debtee2.getKey());
                 Float debt2 = debtee2.getValue().get(debtee1.getKey());
                 System.out.println(debt1 + ", " + debt2);
 
