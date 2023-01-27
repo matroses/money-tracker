@@ -11,14 +11,14 @@ import main.java.moneytracker.view.View;
 import main.java.moneytracker.controller.OverviewController;
 
 import java.lang.invoke.LambdaConversionException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class OverviewPane extends GridPane implements View {
 
     private final OverviewController controller;
 
-    Label titleLabel, totalPriceLabel;
-    private TableView<Map<Person, Double>> personTable;
+    Label titleLabel, textLabel;
 
     public OverviewPane(OverviewController controller) {
         this.controller = controller;
@@ -29,33 +29,48 @@ public class OverviewPane extends GridPane implements View {
         this.setHgap(5);
 
         this.titleLabel = new Label("Overview");
-        this.totalPriceLabel = new Label("Total price: ");
-        this.personTable = new TableView<>();
+        this.textLabel = new Label("");
 
-        this.add(new Label("All tickets"), 0, 0, 1, 1);
-        this.setupPersonTable();
+        this.add(titleLabel, 0, 0, 1, 1);
+        this.setupTextLabel();
+        this.add(textLabel, 0, 2, 1, 1);
         this.update();
-        this.add(personTable, 0, 1);
-
-        this.controller.getDebtMap();
     }
 
-    public void setupPersonTable() {
-        /*this.ticketTable = new TableView<>();
+    public void setupTextLabel() {
+        Map<Person, Map<Person, Float>> debtMap = this.controller.getDebtMap();
+        this.controller.logDebtMap(debtMap);
 
-        TableColumn<Ticket, String> colName = new TableColumn<>("Price");
-        colName.setMinWidth(300);
-        colName.setCellValueFactory(cellData -> new ReadOnlyStringWrapper("€ " + cellData.getValue().getTotal()));
-        ticketTable.getColumns().add(colName);*/
+        String text = "";
 
-        this.personTable = new TableView<>();
+        for (Map.Entry<Person, Map<Person, Float>> debtee: debtMap.entrySet()) {
+            Map<Person, Float> debtorMap = new HashMap<>();
+            int debtorAmount = 0;
 
-        //TableColumn<Person, Double> colName = new TableColumn<>("Debt");
+            for (Map.Entry<Person, Float> debtor: debtee.getValue().entrySet()) {
+                if (debtor.getValue() > 0f) {
+                    debtorMap.put(debtor.getKey(), debtor.getValue());
+                    debtorAmount++;
+                }
+            }
+            if (!debtorMap.isEmpty()) {
+                int debtorCount = 0;
+                text += "\n" + debtee.getKey().getFullName() + " owes ";
+
+                for (Map.Entry<Person, Float> debtor: debtorMap.entrySet()) {
+                    if (debtorCount > 0 && debtorCount < debtorAmount) text += " and ";
+                    text += debtor.getKey().getFullName() + " €\u200E" + debtor.getValue();
+                    debtorCount ++;
+                }
+            }
+        }
+
+        titleLabel.setText(text);
     }
 
     public void update() {
         // Update the overview pane, called by the controller
         //personTable.setItems(FXCollections.observableArrayList(controller.getDebtPerPerson()));
-        personTable.refresh();
+        //personTable.refresh();
     }
 }
