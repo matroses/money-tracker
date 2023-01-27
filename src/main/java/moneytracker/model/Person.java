@@ -1,4 +1,4 @@
-package main.java.moneytracker.model;
+package moneytracker.model;
 
 import javafx.util.StringConverter;
 

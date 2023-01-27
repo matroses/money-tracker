@@ -1,7 +1,7 @@
-package main.java.moneytracker.model;
+package moneytracker.model;
 
-import main.java.moneytracker.model.db.PeopleDB;
-import main.java.moneytracker.model.db.TicketDB;
+import moneytracker.model.db.PeopleDB;
+import moneytracker.model.db.TicketDB;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

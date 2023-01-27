@@ -1,7 +1,7 @@
-package main.java.moneytracker.controller;
+package moneytracker.controller;
 
-import main.java.moneytracker.model.MoneyTrackerApp;
-import main.java.moneytracker.view.View;
+import moneytracker.model.MoneyTrackerApp;
+import moneytracker.view.View;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -20,7 +20,6 @@ public abstract class Controller implements PropertyChangeListener {
         this.view = view;
     }
 
-    @Override
     public void propertyChange(PropertyChangeEvent evt) {
         view.update();
     }

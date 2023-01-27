@@ -1,13 +1,13 @@
-package main.java.moneytracker.view.tickets.TicketTypePanes;
+package moneytracker.view.tickets.TicketTypePanes;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import main.java.moneytracker.controller.tickets.CreateTicketController;
-import main.java.moneytracker.model.Person;
-import main.java.moneytracker.model.enums.PaymentStrategiesEnum;
-import main.java.moneytracker.model.tickets.Ticket;
-import main.java.moneytracker.view.View;
+import moneytracker.controller.tickets.CreateTicketController;
+import moneytracker.model.Person;
+import moneytracker.model.enums.PaymentStrategiesEnum;
+import moneytracker.model.tickets.Ticket;
+import moneytracker.view.View;
 
 import java.util.*;
 
@@ -43,7 +43,7 @@ public abstract class TicketTypePane extends GridPane implements View {
         this.renderFields();
     }
 
-    protected abstract void addFieldsForNewPerson(Person person);
+    protected abstract void addFieldsForNewPerson(Person person, boolean renderFields);
     protected abstract void saveTicket();
     protected abstract void verifyField(String fieldName, Control field, Person person);
     protected abstract Map<String, Map<Person, Float>> getTicketValues();
@@ -61,6 +61,8 @@ public abstract class TicketTypePane extends GridPane implements View {
         this.add(personChoiceBox, 1, 2);
         this.add(new Label(""), 0, 3);
 
+
+        // If we are editing a ticket, get the values of the ticket
         Map<String, Map<Person, Float>> ticketValues = null;
         if (this.ticket != null) {
             ticketValues = this.getTicketValues();
@@ -73,8 +75,11 @@ public abstract class TicketTypePane extends GridPane implements View {
                     Person person = personEntry.getKey();
 
                     if (!this.fieldsPerPerson.containsKey(person)) {
-                        this.addFieldsForNewPerson(person);
+                        this.addFieldsForNewPerson(person, false);
                     }
+
+                    // Set the value of the field
+                    ((TextField) this.fieldsPerPerson.get(person).get(entry.getKey())).setText(String.valueOf(personEntry.getValue()));
                 }
             }
         }
@@ -176,7 +181,8 @@ public abstract class TicketTypePane extends GridPane implements View {
         personChoiceBox.setConverter(Person.getConverter());
         personChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                this.addFieldsForNewPerson(newValue);
+                this.addFieldsForNewPerson(newValue, true);
+                updatePersonChoiceBox();
             }
 
             // Reset the choice box

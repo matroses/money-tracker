@@ -1,9 +1,9 @@
-package main.java.moneytracker.model.enums;
+package moneytracker.model.enums;
 
 import javafx.util.StringConverter;
-import main.java.moneytracker.model.strategies.EqualSplitStrategy;
-import main.java.moneytracker.model.strategies.ExactSplitStrategy;
-import main.java.moneytracker.model.strategies.PaymentStrategy;
+import moneytracker.model.strategies.EqualSplitStrategy;
+import moneytracker.model.strategies.ExactSplitStrategy;
+import moneytracker.model.strategies.PaymentStrategy;
 
 public enum PaymentStrategiesEnum {
 

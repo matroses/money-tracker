@@ -1,11 +1,11 @@
-package main.java.moneytracker.controller.tickets;
+package moneytracker.controller.tickets;
 
-import main.java.moneytracker.controller.Controller;
-import main.java.moneytracker.model.MoneyTrackerApp;
-import main.java.moneytracker.model.Person;
-import main.java.moneytracker.model.enums.PaymentStrategiesEnum;
-import main.java.moneytracker.model.tickets.AirplaneTicket;
-import main.java.moneytracker.model.tickets.GenericTicket;
+import moneytracker.controller.Controller;
+import moneytracker.model.MoneyTrackerApp;
+import moneytracker.model.Person;
+import moneytracker.model.enums.PaymentStrategiesEnum;
+import moneytracker.model.tickets.AirplaneTicket;
+import moneytracker.model.tickets.GenericTicket;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +17,7 @@ public class CreateTicketController extends Controller {
     }
 
     public List<Person> getPeople() {
-        return app.getPeopleDB().getAllPeople();
+        return app.getPeopleDB().getActivePeople();
     }
 
     /**

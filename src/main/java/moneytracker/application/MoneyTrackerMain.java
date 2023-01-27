@@ -1,12 +1,12 @@
-package main.java.moneytracker.application;
+package moneytracker.application;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import main.java.moneytracker.model.MoneyTrackerApp;
-import main.java.moneytracker.model.Person;
-import main.java.moneytracker.model.enums.PaymentStrategiesEnum;
-import main.java.moneytracker.model.tickets.GenericTicket;
-import main.java.moneytracker.view.MainStage;
+import moneytracker.model.MoneyTrackerApp;
+import moneytracker.model.Person;
+import moneytracker.model.enums.PaymentStrategiesEnum;
+import moneytracker.model.tickets.GenericTicket;
+import moneytracker.view.MainStage;
 
 import java.util.HashMap;
 

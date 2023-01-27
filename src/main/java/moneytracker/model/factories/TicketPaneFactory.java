@@ -1,11 +1,11 @@
-package main.java.moneytracker.model.factories;
+package moneytracker.model.factories;
 
-import main.java.moneytracker.controller.tickets.CreateTicketController;
-import main.java.moneytracker.model.enums.TicketTypeEnum;
-import main.java.moneytracker.model.tickets.Ticket;
-import main.java.moneytracker.view.tickets.TicketTypePanes.AirplaneTicketPane;
-import main.java.moneytracker.view.tickets.TicketTypePanes.GenericTicketPane;
-import main.java.moneytracker.view.tickets.TicketTypePanes.TicketTypePane;
+import moneytracker.controller.tickets.CreateTicketController;
+import moneytracker.model.enums.TicketTypeEnum;
+import moneytracker.model.tickets.Ticket;
+import moneytracker.view.tickets.TicketTypePanes.AirplaneTicketPane;
+import moneytracker.view.tickets.TicketTypePanes.GenericTicketPane;
+import moneytracker.view.tickets.TicketTypePanes.TicketTypePane;
 
 /**
  * Factory for creating TicketTypePane objects.

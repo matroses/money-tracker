@@ -1,10 +1,10 @@
-package main.java.moneytracker.model.factories;
+package moneytracker.model.factories;
 
-import main.java.moneytracker.model.Person;
-import main.java.moneytracker.model.tickets.Ticket;
-import main.java.moneytracker.model.enums.PaymentStrategiesEnum;
-import main.java.moneytracker.model.enums.TicketTypeEnum;
-import main.java.moneytracker.model.strategies.PaymentStrategy;
+import moneytracker.model.Person;
+import moneytracker.model.tickets.Ticket;
+import moneytracker.model.enums.PaymentStrategiesEnum;
+import moneytracker.model.enums.TicketTypeEnum;
+import moneytracker.model.strategies.PaymentStrategy;
 
 import java.util.Map;
 

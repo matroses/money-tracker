@@ -1,6 +1,6 @@
-package main.java.moneytracker.model.strategies;
+package moneytracker.model.strategies;
 
-import main.java.moneytracker.model.Person;
+import moneytracker.model.Person;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,7 +1,7 @@
-package main.java.moneytracker.model.tickets;
+package moneytracker.model.tickets;
 
-import main.java.moneytracker.model.Person;
-import main.java.moneytracker.model.enums.PaymentStrategiesEnum;
+import moneytracker.model.Person;
+import moneytracker.model.enums.PaymentStrategiesEnum;
 
 import java.util.Map;
 import java.util.UUID;

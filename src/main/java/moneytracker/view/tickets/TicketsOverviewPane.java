@@ -1,4 +1,4 @@
-package main.java.moneytracker.view.tickets;
+package moneytracker.view.tickets;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
@@ -8,10 +8,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
-import main.java.moneytracker.controller.tickets.CreateTicketController;
-import main.java.moneytracker.controller.tickets.TicketsOverviewController;
-import main.java.moneytracker.model.tickets.Ticket;
-import main.java.moneytracker.view.View;
+import moneytracker.controller.tickets.CreateTicketController;
+import moneytracker.controller.tickets.TicketsOverviewController;
+import moneytracker.model.tickets.Ticket;
+import moneytracker.view.View;
 
 import java.lang.reflect.InvocationTargetException;
 

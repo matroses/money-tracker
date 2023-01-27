@@ -1,11 +1,11 @@
-package main.java.moneytracker.view.tickets.TicketTypePanes;
+package moneytracker.view.tickets.TicketTypePanes;
 
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
-import main.java.moneytracker.controller.tickets.CreateTicketController;
-import main.java.moneytracker.model.Person;
-import main.java.moneytracker.model.tickets.AirplaneTicket;
-import main.java.moneytracker.model.tickets.Ticket;
+import moneytracker.controller.tickets.CreateTicketController;
+import moneytracker.model.Person;
+import moneytracker.model.tickets.AirplaneTicket;
+import moneytracker.model.tickets.Ticket;
 
 import java.util.*;
 
@@ -33,7 +33,7 @@ public class AirplaneTicketPane extends TicketTypePane {
         return values;
     }
 
-    public void addFieldsForNewPerson(Person person) {
+    public void addFieldsForNewPerson(Person person, boolean renderFields) {
         if (fieldsPerPerson.containsKey(person)) {
             return;
         }
@@ -45,7 +45,9 @@ public class AirplaneTicketPane extends TicketTypePane {
         fields.put("Other costs", new TextField());
         fieldsPerPerson.put(person, fields);
 
-        this.renderFields();
+        if (renderFields) {
+            this.renderFields();
+        }
     }
 
     @Override

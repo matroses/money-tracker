@@ -1,8 +1,8 @@
-package main.java.moneytracker.controller;
+package moneytracker.controller;
 
-import main.java.moneytracker.model.MoneyTrackerApp;
-import main.java.moneytracker.model.Person;
-import main.java.moneytracker.model.tickets.Ticket;
+import moneytracker.model.MoneyTrackerApp;
+import moneytracker.model.Person;
+import moneytracker.model.tickets.Ticket;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package main.java.moneytracker.view.general;
+package moneytracker.view.general;
 
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -6,9 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
-import main.java.moneytracker.model.Person;
-import main.java.moneytracker.view.View;
-import main.java.moneytracker.controller.OverviewController;
+import moneytracker.model.Person;
+import moneytracker.view.View;
+import moneytracker.controller.OverviewController;
 
 import java.lang.invoke.LambdaConversionException;
 import java.util.Map;

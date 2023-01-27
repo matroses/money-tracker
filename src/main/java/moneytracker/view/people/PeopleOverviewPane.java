@@ -1,4 +1,4 @@
-package main.java.moneytracker.view.people;
+package moneytracker.view.people;
 
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -7,9 +7,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import main.java.moneytracker.controller.people.PeopleOverviewController;
-import main.java.moneytracker.model.Person;
-import main.java.moneytracker.view.View;
+import moneytracker.controller.people.PeopleOverviewController;
+import moneytracker.model.Person;
+import moneytracker.view.View;
 
 public class PeopleOverviewPane extends GridPane implements View {
 

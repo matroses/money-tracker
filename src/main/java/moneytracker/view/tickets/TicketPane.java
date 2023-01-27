@@ -1,16 +1,16 @@
-package main.java.moneytracker.view.tickets;
+package moneytracker.view.tickets;
 
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import main.java.moneytracker.controller.tickets.CreateTicketController;
-import main.java.moneytracker.model.enums.TicketTypeEnum;
-import main.java.moneytracker.model.factories.TicketPaneFactory;
-import main.java.moneytracker.model.tickets.Ticket;
-import main.java.moneytracker.view.View;
+import moneytracker.controller.tickets.CreateTicketController;
+import moneytracker.model.enums.TicketTypeEnum;
+import moneytracker.model.factories.TicketPaneFactory;
+import moneytracker.model.tickets.Ticket;
+import moneytracker.view.View;
 
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
-import main.java.moneytracker.view.tickets.TicketTypePanes.TicketTypePane;
+import moneytracker.view.tickets.TicketTypePanes.TicketTypePane;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -19,7 +19,7 @@ public class TicketPane extends GridPane implements View {
     private final CreateTicketController controller;
     private final ChoiceBox<TicketTypeEnum> ticketTypeChoiceBox;
     private TicketTypePane ticketTypePane;
-    private Label ticketTitleLabel = new Label("Create new ticket");
+    private final Label ticketTitleLabel = new Label("Create new ticket");
 
     public TicketPane(CreateTicketController controller) {
         this.controller = controller;

@@ -1,8 +1,8 @@
-package main.java.moneytracker.model.enums;
+package moneytracker.model.enums;
 
 import javafx.util.StringConverter;
-import main.java.moneytracker.model.tickets.*;
-import main.java.moneytracker.view.tickets.TicketTypePanes.*;
+import moneytracker.model.tickets.*;
+import moneytracker.view.tickets.TicketTypePanes.*;
 
 public enum TicketTypeEnum {
     GENERIC_TICKET("Generic ticket", GenericTicket.class, GenericTicketPane.class),

@@ -1,10 +1,10 @@
-package main.java.moneytracker.view.people;
+package moneytracker.view.people;
 
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import main.java.moneytracker.controller.people.PeopleOverviewController;
-import main.java.moneytracker.model.Person;
-import main.java.moneytracker.view.View;
+import moneytracker.controller.people.PeopleOverviewController;
+import moneytracker.model.Person;
+import moneytracker.view.View;
 
 public class PersonShowcasePane extends GridPane implements View {
 

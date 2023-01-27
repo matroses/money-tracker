@@ -1,4 +1,4 @@
-package main.java.moneytracker.view;
+package moneytracker.view;
 
 public interface View {
 

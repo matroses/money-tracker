@@ -1,11 +1,11 @@
-package main.java.moneytracker.view;
+package moneytracker.view;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import main.java.moneytracker.model.MoneyTrackerApp;
+import moneytracker.model.MoneyTrackerApp;
 
 public class MainStage {
 
@@ -25,5 +25,6 @@ public class MainStage {
         stage.setScene(scene);
         stage.sizeToScene();
         stage.show();
+        stage.toFront();
     }
 }

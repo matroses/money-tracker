@@ -1,7 +1,8 @@
-package main.java.moneytracker.model.db;
+package moneytracker.model.db;
 
-import main.java.moneytracker.model.Person;
-import main.java.moneytracker.model.tickets.Ticket;
+import com.google.gson.Gson;
+import moneytracker.model.Person;
+import moneytracker.model.tickets.Ticket;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -64,4 +65,28 @@ public class TicketDB extends Database {
         propertyChangeSupport.addPropertyChangeListener(listener);
     }
 
+    @Override
+    public String databasePath() {
+        return "./data/tickets.json";
+    }
+
+    @Override
+    protected boolean fromJSON(String json) {
+        Gson gson = new Gson();
+
+        try {
+            Map<Person, Map<UUID, Ticket>> map = gson.fromJson(json, tickets.getClass());
+            tickets.putAll(map);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    protected String toJSON() {
+        return (new Gson()).toJson(tickets);
+    }
 }
