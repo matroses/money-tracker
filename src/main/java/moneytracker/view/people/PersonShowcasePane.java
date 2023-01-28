@@ -1,5 +1,6 @@
 package moneytracker.view.people;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import moneytracker.controller.people.PeopleOverviewController;
@@ -10,7 +11,7 @@ public class PersonShowcasePane extends GridPane implements View {
 
     private final PeopleOverviewController controller;
     private Person person;
-    private final Label titleLabel, firstNameLabel, lastNameLabel, isDeletedLabel;
+    private final Label titleLabel, firstNameLabel, lastNameLabel, isDeletedLabel, errorLabel;
     private final TextField firstNameField, lastNameField;
     private final Button saveButton, removeButton, reactivateButton;
     private final Dialog<ButtonType> dialog;
@@ -25,6 +26,9 @@ public class PersonShowcasePane extends GridPane implements View {
         firstNameField = new TextField();
         lastNameField = new TextField();
         isDeletedLabel = new Label("");
+        errorLabel = new Label("");
+        errorLabel.setStyle("-fx-text-fill: red;");
+        GridPane.setMargin(errorLabel, new Insets(10, 0, 0, 0));
         saveButton = new Button("Save");
         saveButton.setOnAction(event -> this.updatePerson());
         removeButton = new Button("Remove");
@@ -74,6 +78,7 @@ public class PersonShowcasePane extends GridPane implements View {
             this.add(lastNameField, 1, 2);
             this.add(saveButton, 0, 3);
             this.add(removeButton, 1, 3);
+            this.add(errorLabel, 0, 4, 2, 1);
         }
     }
 
@@ -88,6 +93,14 @@ public class PersonShowcasePane extends GridPane implements View {
     }
 
     public void updatePerson() {
+        // Check if the fields are not empty
+        if (this.firstNameField.getText().trim().isEmpty() || this.lastNameField.getText().trim().isEmpty()) {
+            this.errorLabel.setText("Please fill in all the fields.");
+            return;
+        } else {
+            this.errorLabel.setText("");
+        }
+
         if (this.person == null) {
             this.person = new Person();
         }
