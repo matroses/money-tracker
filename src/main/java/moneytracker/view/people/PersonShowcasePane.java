@@ -48,17 +48,22 @@ public class PersonShowcasePane extends GridPane implements View {
 
         // If there is no person, remove all the elements and display a label to select a person
         if (person == null) {
-            titleLabel.setText("Select a person to view their details");
-            return;
+            titleLabel.setText("Create a new person...");
+
+            // Clear the fields
+            firstNameField.setText("");
+            lastNameField.setText("");
+            this.removeButton.setDisable(true);
+        } else {
+            this.titleLabel.setText("Editing user " + person.getFullName());
+            this.firstNameField.setText(person.getFirstName());
+            this.lastNameField.setText(person.getLastName());
+            this.firstNameField.setDisable(person.isDeleted());
+            this.lastNameField.setDisable(person.isDeleted());
+            this.removeButton.setDisable(false);
         }
 
-        this.titleLabel.setText("Editing user " + person.getFullName());
-        this.firstNameField.setText(person.getFirstName());
-        this.lastNameField.setText(person.getLastName());
-        this.firstNameField.setDisable(person.isDeleted());
-        this.lastNameField.setDisable(person.isDeleted());
-
-        if (person.isDeleted()) {
+        if (person != null && person.isDeleted()) {
             this.isDeletedLabel.setText(person.isDeleted() ? "This person is deleted." : "This person is currently active.");
             this.add(isDeletedLabel, 0, 3);
             this.add(reactivateButton, 0, 4);
@@ -84,7 +89,7 @@ public class PersonShowcasePane extends GridPane implements View {
 
     public void updatePerson() {
         if (this.person == null) {
-            return;
+            this.person = new Person();
         }
 
         this.person.setFirstName(this.firstNameField.getText());

@@ -2,6 +2,7 @@ package moneytracker.view.people;
 
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -16,6 +17,7 @@ public class PeopleOverviewPane extends GridPane implements View {
     private final PeopleOverviewController controller;
     private final PersonShowcasePane personShowcasePane;
     private TableView<Person> personTable;
+    private Button createPersonButton;
 
     public PeopleOverviewPane(PeopleOverviewController controller) {
         this.controller = controller;
@@ -27,11 +29,17 @@ public class PeopleOverviewPane extends GridPane implements View {
         this.setVgap(5);
         this.setHgap(5);
 
-        this.add(new Label("All persons:"), 0, 0, 1, 1);
+        this.createPersonButton = new Button("Create person");
+        this.createPersonButton.setOnAction(event -> {
+            this.personShowcasePane.setPerson(null);
+        });
+
+        this.add(new Label("All people:"), 0, 0, 1, 1);
         this.setupPeopleTable();
         this.update();
         this.add(personTable, 0, 1);
         this.add(personShowcasePane, 1, 1);
+        this.add(createPersonButton, 0, 2);
     }
 
     public void setupPeopleTable() {
@@ -54,9 +62,6 @@ public class PeopleOverviewPane extends GridPane implements View {
     public void update() {
         personTable.setItems(FXCollections.observableArrayList(controller.getPeople()));
         personTable.refresh();
-
-        System.out.println("PeopleOverviewPane: update()");
-
         personShowcasePane.update();
     }
 }

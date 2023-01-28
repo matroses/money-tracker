@@ -21,6 +21,8 @@ public abstract class Controller implements PropertyChangeListener {
     }
 
     public void propertyChange(PropertyChangeEvent evt) {
-        view.update();
+        if (view != null) {
+            view.update();
+        }
     }
 }

@@ -9,9 +9,13 @@ public class Person {
     private String firstName, lastName;
     private boolean isDeleted = false;
 
-    public Person(String firstName, String lastName) {
+    public Person() {
         // Generate random id
         this.id = UUID.randomUUID();
+    }
+
+    public Person(String firstName, String lastName) {
+        this();
         this.firstName = firstName;
         this.lastName = lastName;
     }

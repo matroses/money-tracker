@@ -20,6 +20,7 @@ public abstract class TicketTypePane extends GridPane implements View {
     protected final Label personLabel = new Label("Select a person to add: "), strategyLabel = new Label("Select a strategy: "), payerLabel = new Label("Select a payer: ");
     protected final Map<Person, Map<String, Control>> fieldsPerPerson = new HashMap<>();
     protected final Map<Person, Map<Control, String>> errors = new HashMap<>();
+    protected final Label genericErrorLabel = new Label();
 
     protected Person paidByPerson;
     protected Ticket ticket;
@@ -40,6 +41,9 @@ public abstract class TicketTypePane extends GridPane implements View {
             this.paymentStrategyChoiceBox.setValue(this.ticket.getPaymentStrategy());
         }
 
+        this.genericErrorLabel.setStyle("-fx-text-fill: red");
+        GridPane.setMargin(this.genericErrorLabel, new Insets(10, 0, 0, 0));
+
         this.renderFields();
     }
 
@@ -59,7 +63,7 @@ public abstract class TicketTypePane extends GridPane implements View {
         this.add(payerChoiceBox, 1, 1);
         this.add(personLabel, 0, 2);
         this.add(personChoiceBox, 1, 2);
-        this.add(new Label(""), 0, 3);
+        this.add(this.genericErrorLabel, 0, 3);
 
 
         // If we are editing a ticket, get the values of the ticket
@@ -105,7 +109,9 @@ public abstract class TicketTypePane extends GridPane implements View {
 
                 // If there are errors for this field, add them to the grid
                 if (personErrors != null && personErrors.containsKey(field.getValue())) {
-                    this.add(new Label(personErrors.get(field.getValue())), 2, row);
+                    Label errorLabel = new Label(personErrors.get(field.getValue()));
+                    errorLabel.setStyle("-fx-text-fill: red");
+                    this.add(errorLabel, 2, row);
 
                     // If we are editing a ticket, set the value of the field
                     if (this.ticket != null) {
@@ -129,6 +135,8 @@ public abstract class TicketTypePane extends GridPane implements View {
         saveButton.setOnAction(event -> {
             this.saveTicket();
         });
+        // Set top margin
+        GridPane.setMargin(saveButton, new Insets(10, 0, 0, 0));
         this.add(saveButton, 0, row, 2, 1);
     }
 
@@ -245,8 +253,21 @@ public abstract class TicketTypePane extends GridPane implements View {
      * @return True if all the fields are valid, false otherwise
      */
     protected boolean verifyFields() {
+        boolean areGenericFieldsValid = false;
         // Clear all the errors
         errors.clear();
+
+        // Check if the strategy, payer are selected
+        if (this.getSelectedStrategy() == null) {
+            this.genericErrorLabel.setText("Please select a payment strategy");
+        } else if (this.paidByPerson == null) {
+            this.genericErrorLabel.setText("Please select a person who pays");
+        } else if (this.fieldsPerPerson.isEmpty()) {
+            this.genericErrorLabel.setText("Please select at least one person");
+        } else {
+            this.genericErrorLabel.setText("");
+            areGenericFieldsValid = true;
+        }
 
         // Go over each person and verify their fields
         for (Map.Entry<Person, Map<String, Control>> entry : fieldsPerPerson.entrySet()) {
@@ -256,7 +277,7 @@ public abstract class TicketTypePane extends GridPane implements View {
             }
         }
 
-        return this.errors.isEmpty();
+        return areGenericFieldsValid && this.errors.isEmpty();
     }
 
     /**
