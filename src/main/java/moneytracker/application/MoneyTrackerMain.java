@@ -33,10 +33,24 @@ public class MoneyTrackerMain extends Application
         // Create a dummy ticket
         GenericTicket ticket = new GenericTicket(p1, PaymentStrategiesEnum.EXACT_SPLIT);
         ticket.setCostPerPerson(new HashMap<Person, Float>() {{
-            put(p2, 10f);
+            put(p1, 5f);
+            put(p2, 8f);
             put(p3, 10f);
         }});
         moneyTracker.getTicketDB().addTicket(ticket);
+
+        // Create a dummy ticket2
+        GenericTicket ticket2 = new GenericTicket(p2, PaymentStrategiesEnum.EXACT_SPLIT);
+        ticket2.setCostPerPerson(new HashMap<Person, Float>() {{
+            put(p1, 10f);
+            put(p2, 10f);
+            put(p3, 10f);
+        }});
+        moneyTracker.getTicketDB().addTicket(ticket2);
+
+        // Create a dummy ticket3
+        //GenericTicket ticket3 = new GenericTicket(p2, PaymentStrategiesEnum.EQUAL_SPLIT);
+        //ticket3.setCostPerPerson()
 
         // Start UI
         new MainStage(moneyTracker);
