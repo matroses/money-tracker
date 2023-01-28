@@ -27,3 +27,6 @@ hs_err_pid*
 /.idea/
 /money-tracker.iml
 /out/
+
+people.json
+tickets.json

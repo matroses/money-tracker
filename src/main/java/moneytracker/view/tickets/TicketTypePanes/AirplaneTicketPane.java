@@ -51,8 +51,14 @@ public class AirplaneTicketPane extends TicketTypePane {
     }
 
     @Override
-    protected void saveTicket() {
-        // TODO: Implement
+    protected Ticket createTicket(Map<String, Map<Person, Float>> values) {
+        return this.controller.createAirplaneTicket(
+                this.paidByPerson, this.getSelectedStrategy(),
+                values.get("Seat price"),
+                values.get("Baggage price"),
+                values.get("Food price"),
+                values.get("Other costs")
+        );
     }
 
     @Override

@@ -57,8 +57,9 @@ public class OverviewController extends Controller {
         // Get all deptors, with debts for each debtee
         for (Ticket ticket: tickets) {
             Person debtee = ticket.getPaidBy();
+            ticket.updateOwedPerPerson(); // Calculate owed per person
 
-            for (Map.Entry<Person, Float> entry: ticket.getCostPerPerson().entrySet()) {
+            for (Map.Entry<Person, Float> entry: ticket.getOwedPerPerson().entrySet()) {
                 Map<Person, Float> debtorMap = debtMap.get(entry.getKey());
 
                 debtorMap.put(debtee, debtorMap.get(debtee) + entry.getValue());

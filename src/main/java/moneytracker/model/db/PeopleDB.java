@@ -80,7 +80,7 @@ public class PeopleDB extends Database  {
 
     @Override
     public String databasePath() {
-        return "./data/people.json";
+        return "./people.json";
     }
 
     @Override

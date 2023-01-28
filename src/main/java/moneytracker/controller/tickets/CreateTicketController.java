@@ -6,6 +6,7 @@ import moneytracker.model.Person;
 import moneytracker.model.enums.PaymentStrategiesEnum;
 import moneytracker.model.tickets.AirplaneTicket;
 import moneytracker.model.tickets.GenericTicket;
+import moneytracker.model.tickets.Ticket;
 
 import java.util.List;
 import java.util.Map;
@@ -54,6 +55,8 @@ public class CreateTicketController extends Controller {
             ticket = ticket.setOtherCostsPerPerson(otherCostsPerPerson);
         }
 
+        addTicket(ticket);
+
         return ticket;
     }
 
@@ -67,7 +70,11 @@ public class CreateTicketController extends Controller {
         return ticket;
     }
 
-    public void addTicket(GenericTicket ticket) {
+    public void addTicket(Ticket ticket) {
         app.getTicketDB().addTicket(ticket);
+    }
+
+    public void deleteTicket(Ticket ticket) {
+        app.getTicketDB().deleteTicket(ticket);
     }
 }

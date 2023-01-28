@@ -20,6 +20,9 @@ public abstract class Database {
     public boolean saveDatabase() {
         String json = toJSON();
 
+        // Check if the file exists
+
+
         try {
             Writer writer = new BufferedWriter(new FileWriter(databasePath()));
             writer.write(json);
@@ -33,6 +36,8 @@ public abstract class Database {
     }
 
     public boolean loadDatabase() {
+        if (!fileExists()) return false;
+
         try {
             String json = Files.readString(Path.of(databasePath()));
 
@@ -43,4 +48,7 @@ public abstract class Database {
         }
     }
 
+    protected boolean fileExists() {
+        return Files.exists(Path.of(databasePath()));
+    }
 }

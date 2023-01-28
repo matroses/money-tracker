@@ -5,10 +5,11 @@ import moneytracker.model.enums.PaymentStrategiesEnum;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class AirplaneTicket extends Ticket {
 
-    private Map<Person, Float> seatPricePerPerson = new HashMap<>(), baggagePricePerPerson, foodPricePerPerson, otherCostsPerPerson;
+    private Map<Person, Float> seatPricePerPerson = new HashMap<>(), baggagePricePerPerson = new HashMap<>(), foodPricePerPerson = new HashMap<>(), otherCostsPerPerson = new HashMap<>();
 
     public AirplaneTicket(Person paidBy, PaymentStrategiesEnum paymentStrategyEnum) throws IllegalArgumentException {
         super(paidBy, paymentStrategyEnum);
@@ -19,16 +20,25 @@ public class AirplaneTicket extends Ticket {
     public Map<Person, Float> getCostPerPerson() {
         Map<Person, Float> costPerPerson = new HashMap<>();
 
+        // Get all the unique people from keysets
+        /*Set<Person> people = seatPricePerPerson.keySet()
+
+        // Get all people involved
         for (Person person : seatPricePerPerson.keySet()) {
-            float cost = 0;
-
-            cost += seatPricePerPerson.get(person);
-            cost += baggagePricePerPerson.get(person);
-            cost += foodPricePerPerson.get(person);
-            cost += otherCostsPerPerson.get(person);
-
-            costPerPerson.put(person, cost);
+            costPerPerson.put(person, 0f);
         }
+        for (Person person : baggagePricePerPerson.keySet()) {
+            costPerPerson.put(person, 0f);
+        }
+        for (Person person : foodPricePerPerson.keySet()) {
+            costPerPerson.put(person, 0f);
+        }
+        for (Person person : otherCostsPerPerson.keySet()) {
+            costPerPerson.put(person, 0f);
+        }*/
+
+        // For each person, add the cost of each category
+
 
         return costPerPerson;
     }

@@ -28,6 +28,7 @@ public class OverviewPane extends GridPane implements View {
         this.setHgap(5);
 
         this.titleLabel = new Label("Overview");
+        this.titleLabel.setStyle("-fx-font-size: 14px;-fx-font-weight: bold;");
 
         Map<Person, Map<Person, Float>> debtMap = this.controller.getDebtMap();
         this.textLabel = new Label(this.getOverviewText(debtMap));

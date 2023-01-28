@@ -56,6 +56,14 @@ public class TicketDB extends Database {
         this.propertyChangeSupport.firePropertyChange("TICKET_ADDED", null, ticket);
     }
 
+    public void deleteTicket(Ticket ticket) {
+        Map<UUID, Ticket> ticketsByPerson = getTicketsByPerson(ticket.getPaidBy());
+        ticketsByPerson.remove(ticket.getId());
+        tickets.put(ticket.getPaidBy(), ticketsByPerson);
+
+        this.propertyChangeSupport.firePropertyChange("TICKET_DELETED", null, ticket);
+    }
+
     /**
      * Add a property change listener to this model.
      *
@@ -67,7 +75,7 @@ public class TicketDB extends Database {
 
     @Override
     public String databasePath() {
-        return "./data/tickets.json";
+        return "./tickets.json";
     }
 
     @Override

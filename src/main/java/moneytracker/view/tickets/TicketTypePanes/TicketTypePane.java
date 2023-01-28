@@ -44,7 +44,7 @@ public abstract class TicketTypePane extends GridPane implements View {
     }
 
     protected abstract void addFieldsForNewPerson(Person person, boolean renderFields);
-    protected abstract void saveTicket();
+    protected abstract Ticket createTicket(Map<String, Map<Person, Float>> values);
     protected abstract void verifyField(String fieldName, Control field, Person person);
     protected abstract Map<String, Map<Person, Float>> getTicketValues();
 
@@ -222,6 +222,22 @@ public abstract class TicketTypePane extends GridPane implements View {
         }
 
         return values;
+    }
+
+    protected void saveTicket() {
+        if (!this.verifyFields()) {
+            this.renderFields();
+            return;
+        }
+
+        // Get values from fields
+        Map<String, Map<Person, Float>> values = this.getValuesPerField();
+
+        if (this.ticket != null) {
+            this.controller.deleteTicket(this.ticket);
+        }
+
+        this.ticket = this.createTicket(values);
     }
 
     /**

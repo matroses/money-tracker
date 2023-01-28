@@ -4,12 +4,13 @@ import javafx.util.StringConverter;
 import moneytracker.model.strategies.EqualSplitStrategy;
 import moneytracker.model.strategies.ExactSplitStrategy;
 import moneytracker.model.strategies.PaymentStrategy;
+import moneytracker.model.strategies.RandomPersonPaysStrategy;
 
 public enum PaymentStrategiesEnum {
 
     EQUAL_SPLIT("Evenly split the bill", EqualSplitStrategy.class),
-    EXACT_SPLIT("Split the bill exactly", ExactSplitStrategy.class);
-    // PERCENTAGE_SPLIT;
+    EXACT_SPLIT("Split the bill exactly", ExactSplitStrategy.class),
+    RANDOM_PERSON_PAY("Random person pays",RandomPersonPaysStrategy.class);
 
     private final String description;
     private final Class<? extends PaymentStrategy> strategyClass;

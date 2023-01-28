@@ -15,6 +15,7 @@ public class EqualSplitStrategy implements PaymentStrategy {
         for (Person person: people.keySet()) {
             returnMap.put(person, costPerPerson);
         }
+
         return returnMap;
     }
 }

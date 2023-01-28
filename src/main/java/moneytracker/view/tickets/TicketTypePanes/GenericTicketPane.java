@@ -47,16 +47,8 @@ public class GenericTicketPane extends TicketTypePane {
     }
 
     @Override
-    protected void saveTicket() {
-        if (!this.verifyFields()) {
-            this.renderFields();
-            return;
-        }
-
-        // Get values from fields
-        Map<String, Map<Person, Float>> values = this.getValuesPerField();
-
-        this.ticket = controller.createGenericTicket(
+    protected Ticket createTicket(Map<String, Map<Person, Float>> values) {
+        return controller.createGenericTicket(
             this.paidByPerson, this.getSelectedStrategy(), values.get("Cost")
         );
     }
