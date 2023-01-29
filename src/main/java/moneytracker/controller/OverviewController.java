@@ -89,31 +89,118 @@ public class OverviewController extends Controller {
         return debtMap;
     }
 
-    // Calculate mutual debts between debtees & debtors (one to many) -> reduces transactions to pay each other back
+    // Calculate mutual debts between debtees & debtors (one to two) -> reduces transactions to pay each other back
     public Map<Person, Map<Person, Float>> getSimplifiedDebtMap(Map<Person, Map<Person, Float>> debtMap)
     {
-        for (Map.Entry<Person, Map<Person, Float>> debtee1: debtMap.entrySet()) {
-            for (Map.Entry<Person, Map<Person, Float>> debtee2: debtMap.entrySet()) {
-                for (Map.Entry<Person, Map<Person, Float>> debtee3: debtMap.entrySet()) {
-                    Float debt1 = debtee1.getValue().get(debtee2.getKey());
-                    // Float debt2 = debtee2.getValue().get(debtee1.getKey());
-                    Float debt3 = debtee2.getValue().get(debtee3.getKey());
-                    // Float debt4 = debtee3.getValue().get(debtee2.getKey());
-                    Float debt5 = debtee1.getValue().get(debtee3.getKey());
-                    // Float debt6 = debtee3.getValue().get(debtee1.getKey());
+        for (Map.Entry<Person, Map<Person, Float>> p1: debtMap.entrySet())
+        {
+            for (Map.Entry<Person, Map<Person, Float>> p2: debtMap.entrySet())
+            {
+                for (Map.Entry<Person, Map<Person, Float>> p3: debtMap.entrySet())
+                {
+                    // All mutual debts
+                    Float debt1 = p1.getValue().get(p2.getKey());
+                    Float debt2 = p2.getValue().get(p1.getKey());
+                    Float debt3 = p2.getValue().get(p3.getKey());
+                    Float debt4 = p3.getValue().get(p2.getKey());
+                    Float debt5 = p1.getValue().get(p3.getKey());
+                    Float debt6 = p3.getValue().get(p1.getKey());
 
-                    //System.out.println(debt1 + ", " + debt2 + ", " + debt3 + ", " + debt4 + ", " + debt5 + ", " + debt6);
+                    // Floats for formulas
+                    float x = 0f;
+                    float y = 0f;
+                    float z = 0f;
 
-                    if (debt1 > 0f && debt3 > 0f && debt5 > 0f) {
-                        if (debt1 >= debt3) {
-                            debtee1.getValue().put(debtee2.getKey(), debt1 - debt3);
-                            debtee1.getValue().put(debtee3.getKey(), debt1 + debt3);
-                            debtee2.getValue().put(debtee3.getKey(), 0f);
+                    // Entries to assign new values
+                    Map.Entry<Person, Map<Person, Float>> a = null;
+                    Map.Entry<Person, Map<Person, Float>> b = null;
+                    Map.Entry<Person, Map<Person, Float>> c = null;
+
+                    // p1 owes p2 & p3
+                    if (debt1 > 0 && debt5 > 0)
+                    {
+                        a = p1;
+                        // p2 owes p3
+                        if (debt3 > debt4) {
+                            x = debt3;
+                            y = debt1;
+                            z = debt5;
+                            b = p2;
+                            c = p3;
                         }
-                        else if (debt1 <= debt3) {
-                            debtee1.getValue().put(debtee2.getKey(), 0f);
-                            debtee1.getValue().put(debtee3.getKey(), debt1 + debt5);
-                            debtee2.getValue().put(debtee3.getKey(), debt3 - debt1);
+                        // p3 owes p2
+                        if (debt3 < debt4) {
+                            x = debt4;
+                            y = debt5;
+                            z = debt1;
+                            b = p3;
+                            c = p2;
+                        }
+                    }
+                    // p2 owes p1 & p3
+                    if (debt2 > 0 && debt3 > 0)
+                    {
+                        a = p2;
+                        // p1 owes p3
+                        if (debt5 > debt6) {
+                            x = debt5;
+                            y = debt2;
+                            z = debt3;
+                            b = p1;
+                            c = p3;
+                        }
+                        // p3 owes p1
+                        if (debt5 < debt6) {
+                            x = debt6;
+                            y = debt3;
+                            z = debt2;
+                            b = p3;
+                            c = p1;
+                        }
+                    }
+                    // p3 owes p1 & p2
+                    if (debt4 > 0 && debt6 > 0)
+                    {
+                        a = p3;
+                        // p1 owes p2
+                        if (debt1 > debt2) {
+                            x = debt1;
+                            y = debt4;
+                            z = debt6;
+                            b = p1;
+                            c = p2;
+                        }
+                        // p2 owes p1
+                        if (debt1 < debt2) {
+                            x = debt2;
+                            y = debt6;
+                            z = debt4;
+                            b = p2;
+                            c = p1;
+                        }
+                    }
+
+                    if (!(x == 0f && y == 0f && z == 0f)) {
+                        if (x < y) {
+                            z += x;
+                            y -= x;
+                            x = 0;
+                        }
+                        else if (x > y) {
+                            z += y;
+                            x -= y;
+                            y = 0;
+                        }
+                        else {
+                            z += x;
+                            x = 0;
+                            y = 0;
+                        }
+
+                        if (a != null && b != null && c != null) {
+                            b.getValue().put(c.getKey(), x);
+                            a.getValue().put(b.getKey(), y);
+                            a.getValue().put(c.getKey(), z);
                         }
                     }
                 }
