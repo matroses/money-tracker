@@ -92,6 +92,7 @@ public class OverviewController extends Controller {
     // Calculate mutual debts between debtees & debtors (one to two) -> reduces transactions to pay each other back
     public Map<Person, Map<Person, Float>> getSimplifiedDebtMap(Map<Person, Map<Person, Float>> debtMap)
     {
+        // One debtor to two debtees
         for (Map.Entry<Person, Map<Person, Float>> p1: debtMap.entrySet())
         {
             for (Map.Entry<Person, Map<Person, Float>> p2: debtMap.entrySet())
