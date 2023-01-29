@@ -17,7 +17,7 @@ public class PeopleOverviewPane extends GridPane implements View {
     private final PeopleOverviewController controller;
     private final PersonShowcasePane personShowcasePane;
     private TableView<Person> personTable;
-    private Button createPersonButton;
+    private final Button createPersonButton;
 
     public PeopleOverviewPane(PeopleOverviewController controller) {
         this.controller = controller;

@@ -26,15 +26,4 @@ public class GenericTicket extends Ticket {
     public Map<Person, Float> getCostPerPerson() {
         return costPerPerson;
     }
-
-    @Override
-    public float getTotal() {
-        float total = 0;
-
-        for (Float cost : costPerPerson.values()) {
-            total += cost;
-        }
-
-        return total;
-    }
 }

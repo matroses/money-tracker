@@ -12,15 +12,12 @@ public abstract class Ticket {
     private final UUID id;
     private Person paidBy;
     private PaymentStrategiesEnum paymentStrategy;
-
     private final Map<Person, Float> owedPerPerson = new HashMap<>();
-
-    //private TicketParameters parameters;
 
     public Ticket(Person paidBy, PaymentStrategiesEnum paymentStrategy) throws IllegalArgumentException {
         this.id = UUID.randomUUID();
-        this.paidBy = paidBy;
-        this.paymentStrategy = paymentStrategy;
+        setPaidBy(paidBy);
+        setPaymentStrategy(paymentStrategy);
     }
 
     public UUID getId() {
@@ -31,9 +28,8 @@ public abstract class Ticket {
         return paidBy;
     }
 
-    public Ticket setPaidBy(Person paidBy) {
+    public void setPaidBy(Person paidBy) {
         this.paidBy = paidBy;
-        return this;
     }
 
     public void updateOwedPerPerson() {
@@ -66,5 +62,14 @@ public abstract class Ticket {
 
     public abstract Map<Person, Float> getCostPerPerson();
 
-    public abstract float getTotal();
+    public float getTotal() {
+        Map<Person, Float> costPerPerson = getCostPerPerson();
+
+        float total = 0;
+        for (Float cost : costPerPerson.values()) {
+            total += cost;
+        }
+
+        return total;
+    }
 }

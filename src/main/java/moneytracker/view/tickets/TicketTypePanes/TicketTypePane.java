@@ -82,8 +82,14 @@ public abstract class TicketTypePane extends GridPane implements View {
                         this.addFieldsForNewPerson(person, false);
                     }
 
-                    // Set the value of the field
-                    ((TextField) this.fieldsPerPerson.get(person).get(entry.getKey())).setText(String.valueOf(personEntry.getValue()));
+                    if (!this.fieldsPerPerson.get(person).containsKey(entry.getKey())) {
+                        continue;
+                    }
+
+                    try {
+                        // Set the value of the field
+                        ((TextField) this.fieldsPerPerson.get(person).get(entry.getKey())).setText(String.valueOf(personEntry.getValue()));
+                    } catch (Exception ignored) {}
                 }
             }
         }

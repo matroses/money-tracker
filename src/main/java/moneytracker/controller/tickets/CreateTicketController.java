@@ -6,6 +6,7 @@ import moneytracker.model.Person;
 import moneytracker.model.enums.PaymentStrategiesEnum;
 import moneytracker.model.tickets.AirplaneTicket;
 import moneytracker.model.tickets.GenericTicket;
+import moneytracker.model.tickets.RestaurantTicket;
 import moneytracker.model.tickets.Ticket;
 
 import java.util.List;
@@ -53,6 +54,22 @@ public class CreateTicketController extends Controller {
 
         if (!otherCostsPerPerson.isEmpty()) {
             ticket = ticket.setOtherCostsPerPerson(otherCostsPerPerson);
+        }
+
+        addTicket(ticket);
+
+        return ticket;
+    }
+
+    public RestaurantTicket createRestaurantTicket(Person paidBy, PaymentStrategiesEnum paymentStrategyEnum, Map<Person, Float> foodPricePerPerson, Map<Person, Float> beveragePricePerPerson) {
+        RestaurantTicket ticket = new RestaurantTicket(paidBy, paymentStrategyEnum);
+
+        if (!foodPricePerPerson.isEmpty()) {
+            ticket = ticket.setFoodPricePerPerson(foodPricePerPerson);
+        }
+
+        if (!beveragePricePerPerson.isEmpty()) {
+            ticket = ticket.setBeveragePricePerPerson(beveragePricePerPerson);
         }
 
         addTicket(ticket);

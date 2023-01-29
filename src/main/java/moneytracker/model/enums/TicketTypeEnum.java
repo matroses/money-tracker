@@ -6,11 +6,8 @@ import moneytracker.view.tickets.TicketTypePanes.*;
 
 public enum TicketTypeEnum {
     GENERIC_TICKET("Generic ticket", GenericTicket.class, GenericTicketPane.class),
-    AIRPLANE_TICKET("Airplane ticket", AirplaneTicket.class, AirplaneTicketPane.class);
-    //RestaurantTicket,
-    //TaxiTicket,
-    //ConcertTicket,
-    //ShoppingTicket;
+    AIRPLANE_TICKET("Airplane ticket", AirplaneTicket.class, AirplaneTicketPane.class),
+    RESTAURANT_TICKET("Restaurant ticket", RestaurantTicket.class, RestaurantTicketPane.class);
 
     private final String name;
     private final Class<? extends Ticket> ticketClass;

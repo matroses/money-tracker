@@ -54,18 +54,6 @@ public class AirplaneTicket extends Ticket {
         return costPerPerson;
     }
 
-    @Override
-    public float getTotal() {
-        Map<Person, Float> costPerPerson = getCostPerPerson();
-
-        float total = 0;
-        for (Float cost : costPerPerson.values()) {
-            total += cost;
-        }
-
-        return total;
-    }
-
     public Map<Person, Float> getSeatPricePerPerson() {
         return seatPricePerPerson;
     }

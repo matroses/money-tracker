@@ -5,6 +5,7 @@ import moneytracker.model.enums.TicketTypeEnum;
 import moneytracker.model.tickets.Ticket;
 import moneytracker.view.tickets.TicketTypePanes.AirplaneTicketPane;
 import moneytracker.view.tickets.TicketTypePanes.GenericTicketPane;
+import moneytracker.view.tickets.TicketTypePanes.RestaurantTicketPane;
 import moneytracker.view.tickets.TicketTypePanes.TicketTypePane;
 
 /**
@@ -23,6 +24,10 @@ public class TicketPaneFactory {
 
         if (ticketTypePaneClass.equals(GenericTicketPane.class)) {
             return new GenericTicketPane(controller, ticket);
+        }
+
+        if (ticketTypePaneClass.equals(RestaurantTicketPane.class)) {
+            return new RestaurantTicketPane(controller, ticket);
         }
 
         return null;
