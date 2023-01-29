@@ -33,12 +33,24 @@ public class TicketsOverviewPane extends GridPane implements View {
         this.add(new Label("All tickets"), 0, 0, 1, 1);
         this.setupTicketsTable();
         this.update();
+
+
         Button createTicketButton = new Button("Create ticket");
         createTicketButton.setOnAction(event -> {
             switchSidePane(new TicketPane(createTicketController));
         });
-        this.add(ticketTable, 0, 1);
+        Button deleteTicketButton = new Button("Delete ticket");
+        deleteTicketButton.setOnAction(event -> {
+            Ticket selectedTicket = ticketTable.getSelectionModel().getSelectedItem();
+            if (selectedTicket != null) {
+                switchSidePane(new TicketPane(createTicketController));
+                controller.deleteTicket(selectedTicket);
+            }
+        });
+
+        this.add(ticketTable, 0, 1, 2, 1);
         this.add(createTicketButton, 0, 2);
+        this.add(deleteTicketButton, 1, 2);
     }
 
     public void setupTicketsTable() {
@@ -72,9 +84,9 @@ public class TicketsOverviewPane extends GridPane implements View {
 
     public void switchSidePane(GridPane pane) {
         // Remove the current side pane
-        this.getChildren().removeIf(node -> GridPane.getColumnIndex(node) == 1);
+        this.getChildren().removeIf(node -> GridPane.getColumnIndex(node) == 2);
 
         // Add the new side pane
-        this.add(pane, 1, 0, 2, 2);
+        this.add(pane, 2, 0, 2, 2);
     }
 }

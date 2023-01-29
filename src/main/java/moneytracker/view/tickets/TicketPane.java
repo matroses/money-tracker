@@ -68,7 +68,9 @@ public class TicketPane extends GridPane implements View {
 
     @Override
     public void update() {
-        this.ticketTypePane.update();
+        if (this.ticketTypePane != null) {
+            this.ticketTypePane.update();
+        }
     }
 
     /**

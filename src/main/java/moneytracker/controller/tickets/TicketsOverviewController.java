@@ -19,4 +19,8 @@ public class TicketsOverviewController extends Controller {
     public ArrayList<Ticket> getTickets() {
         return app.getTicketDB().getAllTickets();
     }
+
+    public void deleteTicket(Ticket ticket) {
+        app.getTicketDB().deleteTicket(ticket);
+    }
 }

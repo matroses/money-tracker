@@ -32,8 +32,8 @@ public class MoneyTrackerMain extends Application
         moneyTracker.getPeopleDB().addPerson(p2);
         Person p3 = new Person("Sigfried", "Seldeslachts");
         moneyTracker.getPeopleDB().addPerson(p3);
-        //Person p4 = new Person("Ali", "Anwar");
-        //moneyTracker.getPeopleDB().addPerson(p4);
+        Person p4 = new Person("Ali", "Anwar");
+        moneyTracker.getPeopleDB().addPerson(p4);
 
         // Create a dummy ticket
         /*GenericTicket ticket = new GenericTicket(p1, PaymentStrategiesEnum.EXACT_SPLIT);
