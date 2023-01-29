@@ -66,7 +66,7 @@ public class OverviewController extends Controller {
             }
         }
 
-        // Recalculate differences between debtee & debtors
+        // Calculate mutual debts between debtees & debtors (one to one)
         for (Map.Entry<Person, Map<Person, Float>> debtee1: debtMap.entrySet()) {
             for (Map.Entry<Person, Map<Person, Float>> debtee2: debtMap.entrySet()) {
                 Float debt1 = debtee1.getValue().get(debtee2.getKey());
@@ -89,7 +89,7 @@ public class OverviewController extends Controller {
         return debtMap;
     }
 
-    // Returns simplified map of debtees, debtors and debts, where differences between people are calculated are
+    // Calculate mutual debts between debtees & debtors (one to many) -> reduces transactions to pay each other back
     public Map<Person, Map<Person, Float>> getSimplifiedDebtMap(Map<Person, Map<Person, Float>> debtMap)
     {
         for (Map.Entry<Person, Map<Person, Float>> debtee1: debtMap.entrySet()) {
