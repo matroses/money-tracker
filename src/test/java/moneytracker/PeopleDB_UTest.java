@@ -3,9 +3,20 @@ package moneytracker;
 import moneytracker.model.Person;
 import moneytracker.model.db.PeopleDB;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class PeopleDB_UTest {
+
+    @Before
+    public void initialize() {
+        PeopleDB db = PeopleDB.getInstance();
+
+        // Clean up the database
+        for (Person p : db.getAllPeople()) {
+            db.removePerson(p);
+        }
+    }
 
     @Test
     public void test_addPerson() {
